@@ -1,37 +1,43 @@
-import MeuCard from "@/components/MeuCard";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { BsPlusCircle } from "react-icons/bs";
 
 const index = () => {
   const { push, query } = useRouter();
   const [animais, setAnimais] = useState([]);
 
   useEffect(() => {
-    getAll();
-  }, []);
-
-  function getAll() {
-    axios.get(`/api/animais/${query.id}`).then((res) => {
-      console.log(res.data);
-    });
-  }
+    if (query.id) {
+      axios.get(`/api/animais/${query.id}`).then((res) => {
+        setAnimais(res.data);
+      });
+    }
+  }, [query.id]);
 
   return (
-    <Pagina titulo="Animais">
+    <Pagina titulo={animais.nome}>
       <Row>
         <Col>
-          <MeuCard>
+          <Card>
             <Card.Img src={animais.foto} />
-            <Card.Body>
-              <Card.Title>{animais.nome}</Card.Title>
-            </Card.Body>
-          </MeuCard>
+          </Card>
+        </Col>
+        <Col>
+          <h3>Informações:</h3>
+          <div
+            style={{ border: "1px solid orange", borderRadius: "5px 0 5px 0" }}
+          >
+            <Link
+              className="btn"
+              style={{ backgroundColor: "orange" }}
+              href={`${animais.id}/form`}
+            >
+              Editar
+            </Link>
+          </div>
         </Col>
       </Row>
     </Pagina>
