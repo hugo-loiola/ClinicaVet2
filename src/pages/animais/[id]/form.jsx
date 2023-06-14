@@ -18,10 +18,13 @@ const form = () => {
     formState: { errors },
   } = useForm();
 
+  const [animais, setAnimais] = useState([]);
+
   useEffect(() => {
     if (query.id) {
       axios.get(`/api/animais/${query.id}`).then((res) => {
         const disciplina = res.data;
+        setAnimais(res.data);
 
         for (let atributo in disciplina) {
           setValue(atributo, disciplina[atributo]);
@@ -43,7 +46,7 @@ const form = () => {
 
   function salvar(dados) {
     axios.put(`/api/animais/${dados.id}`, dados);
-    push("/animais");
+    push(`/animais/${animais.id}`);
   }
 
   return (
@@ -126,7 +129,7 @@ const form = () => {
             <BsCheck2 className="me-1" />
             Salvar
           </Button>
-          <Link href={"/animais"} className="ms-2 btn btn-danger">
+          <Link href={`/animais/${animais.id}`} className="ms-2 btn btn-danger">
             <BsArrowLeftCircleFill className="me-1" />
             Voltar
           </Link>

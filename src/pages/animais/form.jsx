@@ -5,9 +5,10 @@ import { ref } from "firebase/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
+import { mask } from "remask";
 
 const form = () => {
   const { push } = useRouter();
@@ -30,6 +31,13 @@ const form = () => {
   function salvar(dados) {
     axios.post("/api/animais", dados);
     push("/animais");
+  }
+
+  function handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    const mascara = event.target.getAttribute("mask");
+    setValue(name, mask(value, mascara));
   }
 
   return (
@@ -55,7 +63,7 @@ const form = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} controlId="tipo">
-            <Form.Label>Tipo</Form.Label>
+            <Form.Label>Tipo:</Form.Label>
             <Form.Select
               defaultValue="..."
               {...register("tipo", animaisValidators.tipo)}
@@ -66,6 +74,14 @@ const form = () => {
               <option>Ave</option>
             </Form.Select>
             {errors.tipo && <small></small>}
+          </Form.Group>
+
+          <Form.Group as={Col}>
+            <Form.Label>Raça:</Form.Label>
+            <Form.Control
+              placeholder="Coloque a raça do bichinho"
+              {...register("raca")}
+            ></Form.Control>
           </Form.Group>
 
           <Form.Group as={Col} controlId="dono">
@@ -80,8 +96,41 @@ const form = () => {
 
         <Form.Group controlId="foto" className="mb-3">
           <Form.Label>Coloque a Imagem</Form.Label>
-          <Form.Control type="text" {...register("foto")} />
+          <Form.Control
+            type="text"
+            placeholder="link da imagem"
+            {...register("foto")}
+          />
         </Form.Group>
+
+        <Row>
+          <Col>
+            <Form.Label>Peso: </Form.Label>
+            <InputGroup controlId="peso" className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Peso em gramas"
+                mask="999"
+                {...register("peso")}
+                onChange={handleChange}
+              />
+              <InputGroup.Text id="peso">g</InputGroup.Text>
+            </InputGroup>
+          </Col>
+          <Col>
+            <Form.Label>Altura: </Form.Label>
+            <InputGroup controlId="altura" className="mb-3">
+              <Form.Control
+                type="text"
+                mask="999"
+                placeholder="Altura em centímetros"
+                {...register("altura")}
+                onChange={handleChange}
+              />
+              <InputGroup.Text id="peso">cm</InputGroup.Text>
+            </InputGroup>
+          </Col>
+        </Row>
 
         <fieldset>
           <Form.Group as={Row} className="mb-3">
