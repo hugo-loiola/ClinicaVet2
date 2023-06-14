@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
 import { mask } from "remask";
@@ -44,13 +44,18 @@ const form = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">
             <Form.Label>Nome: </Form.Label>
-            <Form.Control type="text" {...register("nome")} />
+            <Form.Control
+              type="text"
+              placeholder="Coloque seu Nome"
+              {...register("nome")}
+            />
           </Form.Group>
 
           <Form.Group as={Col} controlId="cpf">
             <Form.Label>CPF: </Form.Label>
             <Form.Control
               type="text"
+              placeholder="123.456.789.09"
               mask="999.999.999-99"
               {...register("cpf")}
               onChange={handleChange}
@@ -71,6 +76,7 @@ const form = () => {
           <Form.Group as={Col} controlId="email">
             <Form.Label>Email: </Form.Label>
             <Form.Control
+              placeholder="exemplo@teste.com"
               type="email"
               {...register("email", { maxLength: 100 })}
             />
@@ -82,6 +88,7 @@ const form = () => {
             <Form.Label>Telefone: </Form.Label>
             <Form.Control
               type="tel"
+              placeholder="(01) 23456-78909"
               mask="(99) 99999-9999"
               {...register("telefone")}
               onChange={handleChange}
@@ -91,6 +98,7 @@ const form = () => {
           <Form.Group as={Col} controlId="cep">
             <Form.Label>CEP: </Form.Label>
             <Form.Control
+              placeholder="12345-678"
               type="text"
               mask="99999-999"
               {...register("cep")}
@@ -117,10 +125,12 @@ const form = () => {
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="numero">
-            <Form.Label>Numero: </Form.Label>
+            <Form.Label>Número: </Form.Label>
             <Form.Control
               type="text"
-              {...register("numero", { maxLength: 20 })}
+              mask="999"
+              {...register("numero")}
+              onChange={handleChange}
             />
           </Form.Group>
 
