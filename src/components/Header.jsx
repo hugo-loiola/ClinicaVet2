@@ -7,7 +7,12 @@ import Navbar from "react-bootstrap/Navbar";
 const Header = () => {
   return (
     <div>
-      <Navbar variant="dark" collapseOnSelect expand="lg" bg="primary">
+      <Navbar
+        variant="light"
+        collapseOnSelect
+        expand="lg"
+        style={{ backgroundColor: "orange" }}
+      >
         <Container>
           <Navbar.Brand href="/">
             <img

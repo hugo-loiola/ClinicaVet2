@@ -1,3 +1,4 @@
+import MeuCard from "@/components/MeuCard";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
@@ -38,9 +39,21 @@ const index = () => {
       <Row>
         {animais.map((item) => (
           <Col key={item.id}>
-            <Card>
-              <Card.Img src={item.foto} />
-            </Card>
+            <Link
+              href={`/animais/${item.id}`}
+              style={{
+                textDecoration: "none",
+                color: "black",
+                textAlign: "center",
+              }}
+            >
+              <MeuCard>
+                <Card.Img src={item.foto} />
+                <Card.Body>
+                  <Card.Title>{item.nome}</Card.Title>
+                </Card.Body>
+              </MeuCard>
+            </Link>
           </Col>
         ))}
       </Row>

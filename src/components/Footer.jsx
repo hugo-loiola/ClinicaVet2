@@ -7,7 +7,7 @@ const Footer = () => {
       fluid
       style={{
         width: "100%",
-        borderTop: "5px solid blue",
+        borderTop: "5px solid orange",
       }}
       className="bottom-0 py-3 text-center"
     >
