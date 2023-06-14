@@ -110,7 +110,7 @@ const form = () => {
               <Form.Control
                 type="text"
                 placeholder="Peso em gramas"
-                mask="999"
+                mask="99,99"
                 {...register("peso")}
                 onChange={handleChange}
               />
@@ -122,8 +122,8 @@ const form = () => {
             <InputGroup controlId="altura" className="mb-3">
               <Form.Control
                 type="text"
-                mask="999"
-                placeholder="Altura em centímetros"
+                mask="99,99"
+                placeholder="99,99"
                 {...register("altura")}
                 onChange={handleChange}
               />
