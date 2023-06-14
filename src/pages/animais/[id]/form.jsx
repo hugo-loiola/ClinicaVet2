@@ -10,13 +10,26 @@ import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
 
 const form = () => {
-  const { push } = useRouter();
+  const { push, query } = useRouter();
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    if (query.id) {
+      axios.get(`/api/animais/${query.id}`).then((res) => {
+        const disciplina = res.data;
+
+        for (let atributo in disciplina) {
+          setValue(atributo, disciplina[atributo]);
+        }
+      });
+    }
+  }, [query.id]);
+
   const [dono, setDono] = useState([]);
   useEffect(() => {
     getAll();
@@ -27,13 +40,14 @@ const form = () => {
       setDono(res.data);
     });
   }
+
   function salvar(dados) {
-    axios.post("/api/animais", dados);
+    axios.put(`/api/animais/${dados.id}`, dados);
     push("/animais");
   }
 
   return (
-    <Pagina titulo="Novo Animal">
+    <Pagina titulo="Editar Animal">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">

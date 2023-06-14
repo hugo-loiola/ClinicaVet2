@@ -4,11 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
-import {
-  BsFillPencilFill,
-  BsFillTrashFill,
-  BsPlusCircle,
-} from "react-icons/bs";
+import { BsPlusCircle } from "react-icons/bs";
 
 const index = () => {
   const [animais, setAnimais] = useState([]);
