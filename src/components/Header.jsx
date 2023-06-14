@@ -13,14 +13,12 @@ const Header = ({ active }) => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto ">
-              <Nav.Link {...active} href="/clientes">
-                Clientes
-              </Nav.Link>
-              <Nav.Link href="/computadores">Computadores</Nav.Link>
-              <Nav.Link href="/funcionarios">Funcionarios</Nav.Link>
-              <Nav.Link href="/marcas">Marcas</Nav.Link>
-              <Nav.Link href="/provedores">Provedores</Nav.Link>
-              <Nav.Link href="/vendas">Vendas</Nav.Link>
+              <Nav.Link href="/animais">Animais</Nav.Link>
+              <Nav.Link href="/clientes">Clientes</Nav.Link>
+              <Nav.Link href="/consultas">Consultas</Nav.Link>
+              <Nav.Link href="/herbivoros">Herbivoros</Nav.Link>
+              <Nav.Link href="/vacinas">Vacinas</Nav.Link>
+              <Nav.Link href="/veterinarios">Veterinários</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
