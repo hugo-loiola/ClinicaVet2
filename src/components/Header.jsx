@@ -4,12 +4,19 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-const Header = ({ active }) => {
+const Header = () => {
   return (
     <div>
-      <Navbar variant="dark" collapseOnSelect expand="lg" bg="black">
+      <Navbar variant="dark" collapseOnSelect expand="lg" bg="primary">
         <Container>
-          <Navbar.Brand href="/">Lan House</Navbar.Brand>
+          <Navbar.Brand href="/">
+            <img
+              alt="Logo"
+              rel="icon"
+              src="../img/Logo.jpeg"
+              style={{ width: "15vh" }}
+            />
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto ">

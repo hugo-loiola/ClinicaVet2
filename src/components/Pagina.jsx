@@ -7,7 +7,7 @@ const Pagina = (props) => {
   return (
     <div>
       <Header />
-      <div className="py-3 text-white text-center mb-3 bg-danger">
+      <div className="py-3 text-white text-center mb-3 bg-dark">
         <Container>
           <h1>{props.titulo}</h1>
         </Container>

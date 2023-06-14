@@ -1,9 +1,10 @@
 import Pagina from "@/components/Pagina";
 import animaisValidators from "@/validators/animaisValidators";
 import axios from "axios";
+import { ref } from "firebase/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
@@ -16,11 +17,27 @@ const form = () => {
     setValue,
     formState: { errors },
   } = useForm();
+  const [dono, setDono] = useState([]);
+  useEffect(() => {
+    getAll();
+  }, []);
 
+  function getAll() {
+    axios.get("/api/clientes").then((res) => {
+      setDono(res.data);
+    });
+  }
   function salvar(dados) {
     axios.post("/api/animais", dados);
     push("/animais");
   }
+
+  const handleUpload = () => {
+    if (!file) {
+        alert("Please upload an image first!");
+    }
+
+    const storageRef = ref(storage, `/files/${file.name}`);
 
   return (
     <Pagina titulo="Novo Animal">
@@ -58,10 +75,21 @@ const form = () => {
             {errors.tipo && <small></small>}
           </Form.Group>
 
-          <Form.Group>
-            <Form.Label></Form.Label>
+          <Form.Group as={Col} controlId="dono">
+            <Form.Label>Dono: </Form.Label>
+            <Form.Select defaultValue="..." {...register("dono")}>
+              {dono.map((item) => (
+                <option key={item.id}>{item.nome}</option>
+              ))}
+            </Form.Select>
           </Form.Group>
         </Row>
+
+        <Form.Group controlId="foto" className="mb-3">
+          <Form.Label>Escolha a Imagem</Form.Label>
+          <Form.Control type="file" accept="image/*" {...register("foto")} />
+        </Form.Group>
+
         <fieldset>
           <Form.Group as={Row} className="mb-3">
             <Form.Label as="legend">Alergia</Form.Label>
