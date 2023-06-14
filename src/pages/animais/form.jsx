@@ -32,13 +32,6 @@ const form = () => {
     push("/animais");
   }
 
-  const handleUpload = () => {
-    if (!file) {
-        alert("Please upload an image first!");
-    }
-
-    const storageRef = ref(storage, `/files/${file.name}`);
-
   return (
     <Pagina titulo="Novo Animal">
       <Form>
