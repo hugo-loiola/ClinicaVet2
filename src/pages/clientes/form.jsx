@@ -136,12 +136,17 @@ const form = () => {
 
           <Form.Group as={Col} controlId="bairro">
             <Form.Label>Bairro: </Form.Label>
-            <Form.Control
-              type="text"
-              {...register("bairro", { maxLength: 100 })}
-            />
+            <Form.Control type="text" {...register("bairro")} />
           </Form.Group>
         </Row>
+        <Form.Group controlId="foto" className="mb-3">
+          <Form.Label>Foto: </Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Coloque sua Imagem"
+            {...register("foto")}
+          />
+        </Form.Group>
 
         <div className="text-center">
           <Button variant="success" onClick={handleSubmit(salvar)}>
