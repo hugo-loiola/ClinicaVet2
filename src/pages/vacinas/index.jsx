@@ -1,8 +1,9 @@
 import Pagina from "@/components/Pagina";
 import axios from "axios";
+import { push } from "firebase/database";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Modal, Row, Table } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row, Table } from "react-bootstrap";
 import {
   BsFillPencilFill,
   BsFillTrashFill,
@@ -12,7 +13,6 @@ import {
 const index = () => {
   const [vacinasCaes, setVacinasCaes] = useState([]);
   const [vacinasGatos, setVacinasGatos] = useState([]);
-  const handleClose = () => setShow(false);
 
   useEffect(() => {
     getAll();
@@ -27,34 +27,14 @@ const index = () => {
     });
   }
 
-  function excluir() {
-    setShow(true);
+  function excluir(id) {
+    if (confirm("Você tem certeza disso?")) {
+      axios.delete(`/api/vacinas/caes/${id}`);
+      getAll();
+    }
   }
   return (
     <Pagina>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Tenha certeza disso, após essa ação o <strong>Cliente</strong> será
-          exluido para sempre!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Sair
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => {
-              axios.delete(`/api/clientes/${cliente.id}`);
-              push("/clientes");
-            }}
-          >
-            Excluir
-          </Button>
-        </Modal.Footer>
-      </Modal>
       <Row>
         <Col>
           <Link href={"/vacinas/caes/form"} className="btn btn-primary mb-2">
@@ -72,7 +52,7 @@ const index = () => {
             </thead>
             <tbody>
               {vacinasCaes.map((item) => (
-                <tr>
+                <tr key={item.id}>
                   <td>
                     <Link href={`/cursos/${item.id}`}>
                       <BsFillPencilFill className="me-2 text-primary" />
@@ -106,7 +86,7 @@ const index = () => {
             </thead>
             <tbody>
               {vacinasGatos.map((item) => (
-                <tr>
+                <tr key={item.id}>
                   <td></td>
                   <td>{item.nome}</td>
                   <td>{item.tipo}</td>
