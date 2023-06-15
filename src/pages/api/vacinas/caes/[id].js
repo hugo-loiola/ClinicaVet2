@@ -8,7 +8,7 @@ export default function handler(req, res) {
   const id = req.query.id;
 
   if (req.method == "GET") {
-    get(child(ref(db), `herbivoros/${id}`)).then((snapshot) => {
+    get(child(ref(db), `vacinas/caes/${id}`)).then((snapshot) => {
       res.status(200).json(snapshot.val());
     });
   } else if (req.method == "POST") {
@@ -18,16 +18,16 @@ export default function handler(req, res) {
 
     dados.id = id;
 
-    set(ref(db, "herbivoros/" + id), dados);
+    set(ref(db, "vacinas/caes" + id), dados);
 
     res.status(200).json(dados);
   } else if (req.method == "PUT") {
     const dados = req.body;
-    update(ref(db, `herbivoros/${id}`), dados);
+    update(ref(db, `vacinas/caes/${id}`), dados);
 
     res.status(200).json(dados);
   } else if (req.method == "DELETE") {
-    remove(ref(db, `herbivoros/${id}`));
+    remove(ref(db, `vacinas/caes/${id}`));
     res.status(200).json(id);
   }
 }

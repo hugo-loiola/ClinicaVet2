@@ -3,11 +3,11 @@ import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Table } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { BsPlusCircle } from "react-icons/bs";
 
 const index = () => {
-  const [veterinarios, setClientes] = useState([]);
+  const [veterinarios, setVeterinarios] = useState([]);
 
   useEffect(() => {
     getAll();
@@ -15,7 +15,7 @@ const index = () => {
 
   function getAll() {
     axios.get("/api/veterinarios").then((res) => {
-      setClientes(res.data);
+      setVeterinarios(res.data);
     });
   }
 

@@ -16,7 +16,6 @@ const form = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const [animal, setAnimal] = useState([]);
 
   function salvar(dados) {
     axios.post("/api/veterinarios", dados);
@@ -53,12 +52,23 @@ const form = () => {
               onChange={handleChange}
             />
           </Form.Group>
+
+          <Form.Group as={Col} controlId="crmv">
+            <Form.Label>CRMV: </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="12.345"
+              mask="99.999"
+              {...register("crmv")}
+              onChange={handleChange}
+            />
+          </Form.Group>
         </Row>
 
         <Row className="mb-3">
           <Form.Group as={Col} controlId="salario">
-            <Form.Label>Salario </Form.Label>
-            <Form.Control type="text" {...register("salario")} />
+            <Form.Label>Salário: </Form.Label>
+            <Form.Control {...register("salario")} />
           </Form.Group>
 
           <Form.Group as={Col} controlId="email">
@@ -141,7 +151,7 @@ const form = () => {
             <BsCheck2 className="me-1" />
             Salvar
           </Button>
-          <Link href={"/alunos"} className="ms-2 btn btn-danger">
+          <Link href={`/veterinarios`} className="ms-2 btn btn-danger">
             <BsArrowLeftCircleFill className="me-1" />
             Voltar
           </Link>

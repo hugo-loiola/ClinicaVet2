@@ -18,8 +18,8 @@ const Header = () => {
             <img
               alt="Logo"
               rel="icon"
-              src="../img/Logo.jpeg"
-              style={{ width: "15vh" }}
+              src="https://www.zarla.com/images/zarla-benjivet-1x1-2400x2400-20211217-ytr7mb8jqcwv3xqc47vf.png?crop=1:1,smart&width=250&dpr=2"
+              style={{ width: "10vh" }}
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -28,7 +28,6 @@ const Header = () => {
               <Nav.Link href="/animais">Animais</Nav.Link>
               <Nav.Link href="/clientes">Clientes</Nav.Link>
               <Nav.Link href="/consultas">Consultas</Nav.Link>
-              <Nav.Link href="/herbivoros">Herbivoros</Nav.Link>
               <Nav.Link href="/vacinas">Vacinas</Nav.Link>
               <Nav.Link href="/veterinarios">Veterinários</Nav.Link>
             </Nav>

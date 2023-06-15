@@ -153,7 +153,7 @@ const form = () => {
             <BsCheck2 className="me-1" />
             Salvar
           </Button>
-          <Link href={"/alunos"} className="ms-2 btn btn-danger">
+          <Link href={"/clientes"} className="ms-2 btn btn-danger">
             <BsArrowLeftCircleFill className="me-1" />
             Voltar
           </Link>

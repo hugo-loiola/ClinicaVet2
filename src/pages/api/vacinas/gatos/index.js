@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 
 export default function handler(req, res) {
   if (req.method == "GET") {
-    get(child(ref(db), "herbivoros")).then((snapshot) => {
+    get(child(ref(db), "vacinas/gatos")).then((snapshot) => {
       const retorno = [];
       snapshot.forEach((item) => {
         retorno.push(item.val());
@@ -18,7 +18,7 @@ export default function handler(req, res) {
     const dados = req.body;
     dados.id = id;
 
-    set(ref(db, "herbivoros/" + id), dados);
+    set(ref(db, "vacinas/gatos/" + id), dados);
     res.status(200).json(dados);
   }
 }
