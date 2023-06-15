@@ -30,7 +30,7 @@ const index = () => {
           <Modal.Title>Deseja Exlcuir {veterinario.nome}?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Tenha certeza disso, após essa ação <strong>Veterinário(a)</strong>{" "}
+          Tenha certeza disso, após essa ação o <strong>Veterinário</strong>{" "}
           será exluido para sempre!
         </Modal.Body>
         <Modal.Footer>

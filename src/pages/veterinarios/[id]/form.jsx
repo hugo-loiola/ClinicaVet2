@@ -45,7 +45,7 @@ const form = () => {
   }
 
   return (
-    <Pagina titulo="Editar Cliente">
+    <Pagina titulo="Editar Veterinario">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">
@@ -70,15 +70,6 @@ const form = () => {
         </Row>
 
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="animal">
-            <Form.Label>Animal: </Form.Label>
-            <Form.Select {...register("animal")}>
-              {animal.map((item) => (
-                <option key={item.id}>{item.nome}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-
           <Form.Group as={Col} controlId="email">
             <Form.Label>Email: </Form.Label>
             <Form.Control
