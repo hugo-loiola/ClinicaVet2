@@ -17,13 +17,10 @@ const form = () => {
     formState: { errors },
   } = useForm();
 
-  const [caes, setCaes] = useState([]);
-
   useEffect(() => {
     if (query.id) {
       axios.get(`/api/vacinas/gatos/${query.id}`).then((res) => {
         const disciplina = res.data;
-        setCaes(res.data);
 
         for (let atributo in disciplina) {
           setValue(atributo, disciplina[atributo]);

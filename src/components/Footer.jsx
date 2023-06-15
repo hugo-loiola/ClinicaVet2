@@ -11,7 +11,7 @@ const Footer = () => {
         width: "100%",
         backgroundColor: "orange",
       }}
-      className="bottom-0 py-3 text-center"
+      className="position-fixed bottom-0 py-3 text-center"
     >
       <Row>
         <Col>
