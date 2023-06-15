@@ -30,6 +30,7 @@ const index = () => {
   function excluir(id) {
     if (confirm("Você tem certeza disso?")) {
       axios.delete(`/api/vacinas/caes/${id}`);
+      axios.delete(`/api/vacinas/gatos/${id}`);
       getAll();
     }
   }
@@ -54,7 +55,7 @@ const index = () => {
               {vacinasCaes.map((item) => (
                 <tr key={item.id}>
                   <td>
-                    <Link href={`/cursos/${item.id}`}>
+                    <Link href={`/vacinas/caes/${item.id}`}>
                       <BsFillPencilFill className="me-2 text-primary" />
                     </Link>
                     <BsFillTrashFill
@@ -64,7 +65,7 @@ const index = () => {
                   </td>
                   <td>{item.nome}</td>
                   <td>{item.tipo}</td>
-                  <td>{item.observacao}</td>
+                  <td>{item.observacoes}</td>
                 </tr>
               ))}
             </tbody>
@@ -87,10 +88,18 @@ const index = () => {
             <tbody>
               {vacinasGatos.map((item) => (
                 <tr key={item.id}>
-                  <td></td>
+                  <td>
+                    <Link href={`/vacinas/gatos/${item.id}`}>
+                      <BsFillPencilFill className="me-2 text-primary" />
+                    </Link>
+                    <BsFillTrashFill
+                      onClick={() => excluir(item.id)}
+                      className="text-danger"
+                    />
+                  </td>
                   <td>{item.nome}</td>
                   <td>{item.tipo}</td>
-                  <td>{item.observacao}</td>
+                  <td>{item.observacoes}</td>
                 </tr>
               ))}
             </tbody>

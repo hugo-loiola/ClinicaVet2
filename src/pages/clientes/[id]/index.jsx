@@ -61,7 +61,7 @@ const index = () => {
             style={{ border: "1px solid orange", borderRadius: "5px" }}
             className="p-3"
           >
-            <p>Animais: {cliente.animal}</p>
+            <p>Animail: {cliente.animal}</p>
             <p>CPF: {cliente.cpf}</p>
             <p>CEP: {cliente.cep}</p>
             <p>Data de Nascimento: {cliente.dataNascimento}</p>

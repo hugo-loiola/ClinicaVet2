@@ -45,23 +45,41 @@ const form = () => {
   }
 
   return (
-    <Pagina titulo="Editar Cliente">
+    <Pagina titulo="Editar Vacina Canina">
       <Form>
-        <Form.Group as={Col} controlId="nome">
-          <Form.Label>Nome: </Form.Label>
-          <Form.Control
-            placeholder="exemplo@teste.com"
-            type="nome"
-            {...register("nome")}
-          />
-        </Form.Group>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="nome">
+            <Form.Label>Nome: </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Coloque seu Nome"
+              {...register("nome")}
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="tipo">
+            <Form.Label>Tipo: </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Coloque seu Nome"
+              {...register("tipo")}
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="observacoes">
+            <Form.Label>Observações: </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Coloque seu Nome"
+              {...register("observacoes")}
+            />
+          </Form.Group>
+        </Row>
 
         <div className="text-center">
           <Button variant="success" onClick={handleSubmit(salvar)}>
             <BsCheck2 className="me-1" />
             Salvar
           </Button>
-          <Link href={`/caess/${caes.id}`} className="ms-2 btn btn-danger">
+          <Link href={`/vacinas`} className="ms-2 btn btn-danger">
             <BsArrowLeftCircleFill className="me-1" />
             Voltar
           </Link>

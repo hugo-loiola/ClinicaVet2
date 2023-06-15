@@ -32,7 +32,7 @@ const form = () => {
   return (
     <Pagina titulo="Nova Vacina Canina">
       <Form>
-        <Row>
+        <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">
             <Form.Label>Nome: </Form.Label>
             <Form.Control
