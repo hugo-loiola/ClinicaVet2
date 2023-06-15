@@ -7,13 +7,13 @@ import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 
 const index = () => {
   const { push, query } = useRouter();
-  const [cliente, setCliente] = useState([]);
+  const [veterinario, setCliente] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   useEffect(() => {
     if (query.id) {
-      axios.get(`/api/clientes/${query.id}`).then((res) => {
+      axios.get(`/api/veterinarios/${query.id}`).then((res) => {
         setCliente(res.data);
       });
     }
@@ -24,14 +24,14 @@ const index = () => {
   }
 
   return (
-    <Pagina titulo={cliente.nome}>
+    <Pagina titulo={veterinario.nome}>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
+          <Modal.Title>Deseja Exlcuir {veterinario.nome}?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Tenha certeza disso, após essa ação o <strong>Cliente</strong> será
-          exluido para sempre!
+          Tenha certeza disso, após essa ação <strong>Veterinário(a)</strong>{" "}
+          será exluido para sempre!
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -40,8 +40,8 @@ const index = () => {
           <Button
             variant="danger"
             onClick={() => {
-              axios.delete(`/api/clientes/${cliente.id}`);
-              push("/clientes");
+              axios.delete(`/api/veterinarios/${veterinario.id}`);
+              push("/veterinarios");
             }}
           >
             Excluir
@@ -51,7 +51,7 @@ const index = () => {
       <Row>
         <Col>
           <Card>
-            <Card.Img src={cliente.foto} />
+            <Card.Img src={veterinario.foto} />
           </Card>
         </Col>
         <Col>
@@ -60,21 +60,21 @@ const index = () => {
             style={{ border: "1px solid orange", borderRadius: "5px" }}
             className="p-3"
           >
-            <p>Animail: {cliente.animal}</p>
-            <p>CPF: {cliente.cpf}</p>
-            <p>CEP: {cliente.cep}</p>
-            <p>Data de Nascimento: {cliente.dataNascimento}</p>
-            <p>Email: {cliente.email}</p>
-            <p>Telefone: {cliente.telefone}</p>
-            <p>Logradouro: {cliente.logradouro}</p>
-            <p>Bairro: {cliente.bairro}</p>
-            <p>Número: {cliente.numero}</p>
+            <p>CRMV: {veterinario.crmv}</p>
+            <p>CPF: {veterinario.cpf}</p>
+            <p>CEP: {veterinario.cep}</p>
+            <p>Data de Nascimento: {veterinario.dataNascimento}</p>
+            <p>Email: {veterinario.email}</p>
+            <p>Telefone: {veterinario.telefone}</p>
+            <p>Logradouro: {veterinario.logradouro}</p>
+            <p>Bairro: {veterinario.bairro}</p>
+            <p>Número: {veterinario.numero}</p>
             <Row className="">
               <Col>
                 <Link
                   className="btn"
                   style={{ backgroundColor: "orange" }}
-                  href={`${cliente.id}/form`}
+                  href={`${veterinario.id}/form`}
                 >
                   Editar
                 </Link>
