@@ -33,14 +33,19 @@ const Footer = () => {
         </Col>
         <Col>
           <h3>Converse Conosco</h3>
-          <a href="https://wa.me/5561991862235">
-            <MdWhatsapp size={"25"} /> (61) 99186-2235
-          </a>
-          <p>
+          <Col className="my-3">
+            <a
+              href="https://wa.me/5561991862235"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <MdWhatsapp size={"25"} /> (61) 99186-2235
+            </a>
+          </Col>
+          <a
+            href="mailto:hugoqueiroz2412@gmail.com?subject=Conversa"
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <MdOutlineMail size={"25"} /> amevet@gmail.com
-          </p>
-          <a href="mailto:hugoqueiroz2412@gmail.com?subject=Conversa">
-            Enviar email
           </a>
         </Col>
       </Row>
