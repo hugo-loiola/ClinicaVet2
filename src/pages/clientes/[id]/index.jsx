@@ -31,7 +31,8 @@ const index = () => {
           <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Tenha certeza disso, após essa ação o animal será exluido para sempre!
+          Tenha certeza disso, após essa ação o <strong>Cliente</strong> será
+          exluido para sempre!
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
