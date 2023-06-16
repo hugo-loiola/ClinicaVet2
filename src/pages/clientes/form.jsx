@@ -17,6 +17,7 @@ const schema = yup
       .required("O Nome Obrigatório")
       .max(5, "maximo"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
+    animal: yup.string().default("...").required("Animal é Obrigatório"),
     email: yup
       .string()
       .email("Use um email válido")
@@ -87,7 +88,7 @@ const form = () => {
               placeholder="Coloque seu Nome"
               {...register("nome")}
             />
-            {errors.nome && (
+            {errors?.nome && (
               <small className="text-danger">{errors.nome?.message}</small>
             )}
           </Form.Group>
@@ -101,7 +102,7 @@ const form = () => {
               {...register("cpf")}
               onChange={handleChange}
             />
-            {errors.cpf && (
+            {errors?.cpf && (
               <small className="text-danger">{errors.cpf?.message}</small>
             )}
           </Form.Group>
@@ -112,10 +113,13 @@ const form = () => {
             <Form.Label>Animal: </Form.Label>
             <Form.Select defaultValue="..." {...register("animal")}>
               <option>...</option>
-              {animal.map((item) => (
+              {animal?.map((item) => (
                 <option key={item?.id}>{item?.nome}</option>
               ))}
             </Form.Select>
+            {errors.animal && (
+              <small className="text-danger">{errors.animal.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="email">
@@ -125,7 +129,7 @@ const form = () => {
               type="email"
               {...register("email")}
             />
-            {errors.email && (
+            {errors?.email && (
               <small className="text-danger">{errors.email?.message}</small>
             )}
           </Form.Group>
@@ -141,7 +145,7 @@ const form = () => {
               {...register("telefone")}
               onChange={handleChange}
             />
-            {errors.telefone && (
+            {errors?.telefone && (
               <small className="text-danger">{errors.telefone?.message}</small>
             )}
           </Form.Group>
@@ -155,7 +159,7 @@ const form = () => {
               {...register("cep")}
               onChange={handleChange}
             />
-            {errors.cep && (
+            {errors?.cep && (
               <small className="text-danger">{errors.cep?.message}</small>
             )}
           </Form.Group>
@@ -164,7 +168,7 @@ const form = () => {
           <Form.Group as={Col} controlId="logradouro">
             <Form.Label>Logradouro: </Form.Label>
             <Form.Control type="text" {...register("logradouro")} />
-            {errors.logradouro && (
+            {errors?.logradouro && (
               <small className="text-danger">
                 {errors.logradouro?.message}
               </small>
@@ -174,20 +178,25 @@ const form = () => {
           <Form.Group as={Col} controlId="complemento">
             <Form.Label>Complemento: </Form.Label>
             <Form.Control type="text" {...register("complemento")} />
-            {errors.complemento && <small>{errors.complemento?.message}</small>}
+            {errors?.complemento && (
+              <small>{errors.complemento?.message}</small>
+            )}
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="numero">
             <Form.Label>Número: </Form.Label>
             <Form.Control type="number" {...register("numero")} />
-            {errors.numero && <small>{errors.numero.message}</small>}
+            {errors?.numero && <small>{errors.numero?.message}</small>}
           </Form.Group>
 
           <Form.Group as={Col} controlId="bairro">
             <Form.Label>Bairro: </Form.Label>
             <Form.Control type="text" {...register("bairro")} />
           </Form.Group>
+          {errors?.bairro && (
+            <small className="text-danger">{errors.bairro?.message}</small>
+          )}
         </Row>
         <Form.Group controlId="foto" className="mb-3">
           <Form.Label>Foto: </Form.Label>
@@ -196,6 +205,9 @@ const form = () => {
             placeholder="Coloque sua Imagem"
             {...register("foto")}
           />
+          {errors.foto && (
+            <small className="text-danger">{errors.foto.message}</small>
+          )}
         </Form.Group>
 
         <div className="text-center">
