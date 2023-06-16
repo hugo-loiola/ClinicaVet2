@@ -14,5 +14,9 @@ const animaisValidators = {
   peso: { required: "O peso é Obrigatório" },
   altura: { required: "A altura é Obrigatória" },
   data: { required: "Data é Obrigatória" },
+  foto: {
+    required: "Foto é Obrigatória",
+    minLength: { value: 5, message: "Mínimo de 5 caracteres" },
+  },
 };
 export default animaisValidators;

@@ -108,8 +108,11 @@ const form = () => {
           <Form.Control
             type="text"
             placeholder="link da imagem"
-            {...register("foto", animaisValidators)}
+            {...register("foto", animaisValidators.foto)}
           />
+          {errors.foto && (
+            <small className="text-danger">{errors.foto.message}</small>
+          )}
         </Form.Group>
 
         <Row>
