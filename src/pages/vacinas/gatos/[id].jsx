@@ -1,4 +1,5 @@
 import Pagina from "@/components/Pagina";
+import vacinasValidators from "@/validators/vacinasValidators";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -49,25 +50,36 @@ const form = () => {
             <Form.Label>Nome: </Form.Label>
             <Form.Control
               type="text"
-              placeholder="Coloque seu Nome"
-              {...register("nome")}
+              placeholder="Coloque o Nome"
+              {...register("nome", vacinasValidators.nome)}
             />
+            {errors.nome && (
+              <small className="text-danger">{errors.nome.message}</small>
+            )}
           </Form.Group>
           <Form.Group as={Col} controlId="tipo">
             <Form.Label>Tipo: </Form.Label>
             <Form.Control
               type="text"
               placeholder="Tipo de Vacina"
-              {...register("tipo")}
+              {...register("tipo", vacinasValidators.tipo)}
             />
+            {errors.tipo && (
+              <small className="text-danger">{errors.tipo.message}</small>
+            )}
           </Form.Group>
           <Form.Group as={Col} controlId="observacoes">
             <Form.Label>Observações: </Form.Label>
             <Form.Control
               type="text"
               placeholder="Efeitos colaterais, tempo, etc..."
-              {...register("observacoes")}
+              {...register("observacoes", vacinasValidators.observacoes)}
             />
+            {errors.observacoes && (
+              <small className="text-danger">
+                {errors.observacoes.message}
+              </small>
+            )}
           </Form.Group>
         </Row>
 

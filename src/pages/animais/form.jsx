@@ -55,14 +55,14 @@ const form = () => {
               <small className="text-danger">{errors.nome.message}</small>
             )}
           </Form.Group>
-          <Form.Group as={Col} controlId="dataNascimento">
+          <Form.Group as={Col} controlid="dataNascimento">
             <Form.Label>Data de Nascimento: </Form.Label>
             <Form.Control
               type="date"
-              {...register("dataNascimento", animaisValidators.data)}
+              {...register("dataNascimento", animaisValidators.dataN)}
             />
-            {errors.data && (
-              <small className="text-danger">{errors.data.message}</small>
+            {errors.dataN && (
+              <small className="text-danger">{errors.dataN.message}</small>
             )}
           </Form.Group>
         </Row>
@@ -82,7 +82,7 @@ const form = () => {
             {errors.tipo && <small>{errors.tipo.message}</small>}
           </Form.Group>
 
-          <Form.Group as={Col}>
+          <Form.Group as={Col} controlId="raca">
             <Form.Label>Raça:</Form.Label>
             <Form.Control
               placeholder="Coloque a raça do bichinho"
@@ -93,7 +93,7 @@ const form = () => {
             )}
           </Form.Group>
 
-          <Form.Group as={Col} controlId="dono">
+          <Form.Group as={Col} controlid="dono">
             <Form.Label>Dono: </Form.Label>
             <Form.Select defaultValue="..." {...register("dono")}>
               {dono.map((item) => (
@@ -127,10 +127,10 @@ const form = () => {
                 onChange={handleChange}
               />
               <InputGroup.Text id="peso">g</InputGroup.Text>
-              {errors.peso && (
-                <small className="text-danger">{errors.peso.message}</small>
-              )}
             </InputGroup>
+            {errors.peso && (
+              <small className="text-danger">{errors.peso.message}</small>
+            )}
           </Col>
           <Col>
             <Form.Label>Altura: </Form.Label>
