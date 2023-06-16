@@ -14,18 +14,34 @@ const schema = yup
   .object({
     nome: yup
       .string("Somente Letras")
-      .required("O nome é obrigatório")
+      .required("O Nome Obrigatório")
       .max(5, "maximo"),
-    cpf: yup.string().required("CPF é obrigatório").min(14, "Preencha o CPF"),
+    cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
     email: yup
       .string()
       .email("Use um email válido")
-      .required("Email é obrigatório"),
-    telefone: yup.string().required("Telefone é obrigatório").min(5),
-    logradouro: yup.string().required(),
-    complemento: yup.string(),
-    numero: yup.number(),
-    bairro: yup.string().required().max(50),
+      .required("Email é Obrigatório"),
+    telefone: yup
+      .string()
+      .required("Telefone Obrigatório")
+      .min(5, "Mínimo de 5 caracteres"),
+    cep: yup
+      .string()
+      .required("CEP Obrigatório")
+      .min(9, "Maximo de 9 caracteres"),
+    logradouro: yup
+      .string()
+      .required("Logradouro Obrigatório")
+      .min(3, "Mínimo de 3 caracteres")
+      .max(20, "Máximo de 20 caracteres"),
+    complemento: yup.string().max(20, "Máximo de 20 caracteres"),
+    numero: yup.number("Tem que ser Número"),
+    bairro: yup.string().required().max(50, "Máximo de 50 caracteres"),
+    foto: yup
+      .string()
+      .required("Foto Obrigatória")
+      .min(5, "Mínimo de 5 caracteres")
+      .url("Coloque uma URL válida"),
   })
   .required();
 
@@ -97,7 +113,7 @@ const form = () => {
             <Form.Select defaultValue="..." {...register("animal")}>
               <option>...</option>
               {animal.map((item) => (
-                <option key={item.id}>{item.nome}</option>
+                <option key={item?.id}>{item?.nome}</option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -110,7 +126,7 @@ const form = () => {
               {...register("email")}
             />
             {errors.email && (
-              <small className="text-danger">{errors.email.message}</small>
+              <small className="text-danger">{errors.email?.message}</small>
             )}
           </Form.Group>
         </Row>
@@ -125,6 +141,9 @@ const form = () => {
               {...register("telefone")}
               onChange={handleChange}
             />
+            {errors.telefone && (
+              <small className="text-danger">{errors.telefone?.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="cep">
@@ -136,34 +155,33 @@ const form = () => {
               {...register("cep")}
               onChange={handleChange}
             />
+            {errors.cep && (
+              <small className="text-danger">{errors.cep?.message}</small>
+            )}
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="logradouro">
             <Form.Label>Logradouro: </Form.Label>
-            <Form.Control
-              type="text"
-              {...register("logradouro", { maxLength: 100 })}
-            />
+            <Form.Control type="text" {...register("logradouro")} />
+            {errors.logradouro && (
+              <small className="text-danger">
+                {errors.logradouro?.message}
+              </small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="complemento">
             <Form.Label>Complemento: </Form.Label>
-            <Form.Control
-              type="text"
-              {...register("complemento", { maxLength: 100 })}
-            />
+            <Form.Control type="text" {...register("complemento")} />
+            {errors.complemento && <small>{errors.complemento?.message}</small>}
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="numero">
             <Form.Label>Número: </Form.Label>
-            <Form.Control
-              type="text"
-              mask="999"
-              {...register("numero")}
-              onChange={handleChange}
-            />
+            <Form.Control type="number" {...register("numero")} />
+            {errors.numero && <small>{errors.numero.message}</small>}
           </Form.Group>
 
           <Form.Group as={Col} controlId="bairro">
