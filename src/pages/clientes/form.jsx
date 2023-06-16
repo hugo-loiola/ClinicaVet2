@@ -7,6 +7,27 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
 import { mask } from "remask";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup
+  .object({
+    nome: yup
+      .string("Somente Letras")
+      .required("O nome é obrigatório")
+      .max(5, "maximo"),
+    cpf: yup.string().required("CPF é obrigatório").min(14, "Preencha o CPF"),
+    email: yup
+      .string()
+      .email("Use um email válido")
+      .required("Email é obrigatório"),
+    telefone: yup.string().required("Telefone é obrigatório").min(5),
+    logradouro: yup.string().required(),
+    complemento: yup.string(),
+    numero: yup.number(),
+    bairro: yup.string().required().max(50),
+  })
+  .required();
 
 const form = () => {
   const { push } = useRouter();
@@ -15,7 +36,8 @@ const form = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
+
   const [animal, setAnimal] = useState([]);
   useEffect(() => {
     getAll();
@@ -49,6 +71,9 @@ const form = () => {
               placeholder="Coloque seu Nome"
               {...register("nome")}
             />
+            {errors.nome && (
+              <small className="text-danger">{errors.nome?.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="cpf">
@@ -60,6 +85,9 @@ const form = () => {
               {...register("cpf")}
               onChange={handleChange}
             />
+            {errors.cpf && (
+              <small className="text-danger">{errors.cpf?.message}</small>
+            )}
           </Form.Group>
         </Row>
 
@@ -79,8 +107,11 @@ const form = () => {
             <Form.Control
               placeholder="exemplo@teste.com"
               type="email"
-              {...register("email", { maxLength: 100 })}
+              {...register("email")}
             />
+            {errors.email && (
+              <small className="text-danger">{errors.email.message}</small>
+            )}
           </Form.Group>
         </Row>
 
