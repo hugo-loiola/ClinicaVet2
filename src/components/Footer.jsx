@@ -9,9 +9,9 @@ const Footer = ({ footer }) => {
       fluid
       style={{
         width: "100%",
-        backgroundColor: "orange",
+        backgroundColor: "#0D8CFF",
       }}
-      className={`position-${footer} bottom-0 py-3 text-center`}
+      className={`position-${footer} bottom-0 py-3 text-center `}
     >
       <Row>
         <Col>

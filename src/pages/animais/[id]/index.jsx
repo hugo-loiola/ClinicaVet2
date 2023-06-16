@@ -56,7 +56,7 @@ const index = () => {
         <Col>
           <h3>Informações:</h3>
           <div
-            style={{ border: "1px solid orange", borderRadius: "5px" }}
+            style={{ border: "1px solid #0D8CFF", borderRadius: "5px" }}
             className="p-3"
           >
             <p>Dono(a): {animais.dono}</p>
@@ -70,7 +70,7 @@ const index = () => {
               <Col>
                 <Link
                   className="btn"
-                  style={{ backgroundColor: "orange" }}
+                  style={{ backgroundColor: "#0D8CFF" }}
                   href={`${animais.id}/form`}
                 >
                   Editar

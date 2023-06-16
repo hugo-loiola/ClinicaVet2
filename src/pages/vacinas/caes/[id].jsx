@@ -3,7 +3,7 @@ import vacinasValidators from "@/validators/vacinasValidators";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
@@ -17,13 +17,10 @@ const form = () => {
     formState: { errors },
   } = useForm();
 
-  const [caes, setCaes] = useState([]);
-
   useEffect(() => {
     if (query.id) {
       axios.get(`/api/vacinas/caes/${query.id}`).then((res) => {
         const disciplina = res.data;
-        setCaes(res.data);
 
         for (let atributo in disciplina) {
           setValue(atributo, disciplina[atributo]);

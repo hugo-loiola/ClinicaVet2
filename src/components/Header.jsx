@@ -3,6 +3,7 @@ import { NavDropdown } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Image from "react-bootstrap/Image";
 
 const Header = () => {
   return (
@@ -11,15 +12,13 @@ const Header = () => {
         variant="light"
         collapseOnSelect
         expand="lg"
-        style={{ backgroundColor: "orange" }}
+        style={{ backgroundColor: "#0D8CFF" }}
       >
         <Container>
           <Navbar.Brand href="/">
             <img
-              alt="Logo"
-              rel="icon"
-              src="https://www.zarla.com/images/zarla-benjivet-1x1-2400x2400-20211217-ytr7mb8jqcwv3xqc47vf.png?crop=1:1,smart&width=250&dpr=2"
-              style={{ width: "10vh" }}
+              style={{ width: "100px" }}
+              src="https://media.discordapp.net/attachments/986769752653434981/1119407200713048254/minhalogo.png"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
