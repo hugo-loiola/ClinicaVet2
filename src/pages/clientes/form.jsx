@@ -66,7 +66,8 @@ const form = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="animal">
             <Form.Label>Animal: </Form.Label>
-            <Form.Select {...register("animal")}>
+            <Form.Select defaultValue="..." {...register("animal")}>
+              <option>...</option>
               {animal.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}

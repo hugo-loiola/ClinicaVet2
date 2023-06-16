@@ -45,7 +45,7 @@ const form = () => {
             <Form.Label>Tipo: </Form.Label>
             <Form.Control
               type="text"
-              placeholder="Coloque seu Nome"
+              placeholder="Tipo de Vacina"
               {...register("tipo")}
             />
           </Form.Group>
@@ -53,7 +53,7 @@ const form = () => {
             <Form.Label>Observações: </Form.Label>
             <Form.Control
               type="text"
-              placeholder="Coloque seu Nome"
+              placeholder="Efeitos colaterais, tempo, etc..."
               {...register("observacoes")}
             />
           </Form.Group>
