@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { MdOutlineMail, MdPlace, MdWhatsapp } from "react-icons/md";
 
-const Footer = () => {
+const Footer = ({ footer }) => {
   return (
     <Container
       fluid
@@ -11,7 +11,7 @@ const Footer = () => {
         width: "100%",
         backgroundColor: "orange",
       }}
-      className="position-fixed bottom-0 py-3 text-center"
+      className={`position-${footer} bottom-0 py-3 text-center`}
     >
       <Row>
         <Col>

@@ -35,7 +35,7 @@ const index = () => {
     }
   }
   return (
-    <Pagina>
+    <Pagina titulo="Vacinas" footer="fixed">
       <Row>
         <Col>
           <Link href={"/vacinas/caes/form"} className="btn btn-primary mb-2">

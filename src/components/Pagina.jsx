@@ -17,7 +17,7 @@ const Pagina = (props) => {
       </Container>
 
       <Container className="mb-5 pb-3">{props.children}</Container>
-      <Footer />
+      <Footer footer={props.footer} />
     </div>
   );
 };

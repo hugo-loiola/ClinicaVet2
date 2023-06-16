@@ -42,7 +42,7 @@ const form = () => {
   }
 
   return (
-    <Pagina titulo="Editar Vacina Canina">
+    <Pagina titulo="Editar Vacina Canina" footer="fixed">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">

@@ -28,6 +28,24 @@ const index = () => {
       });
     }
   }, [query.id]);
+  const [animal, setAnimal] = useState([]);
+  const [cliente, setCliente] = useState([]);
+  const [veterinario, setVeterinario] = useState([]);
+  useEffect(() => {
+    getAll();
+  }, []);
+
+  function getAll() {
+    axios.get("/api/animais").then((res) => {
+      setAnimal(res.data);
+    });
+    axios.get("/api/clientes").then((res) => {
+      setCliente(res.data);
+    });
+    axios.get("/api/veterinarios").then((res) => {
+      setVeterinario(res.data);
+    });
+  }
 
   function salvar(dados) {
     axios.put(`/api/consultas/${dados.id}`, dados);
@@ -41,13 +59,12 @@ const index = () => {
     setValue(name, mask(value, mascara));
   }
   return (
-    <Pagina>
+    <Pagina titulo="Editar Consultas" footer="fixed">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="animal">
             <Form.Label>Animal: </Form.Label>
-            <Form.Select defaultValue="..." {...register("animal")}>
-              <option>...</option>
+            <Form.Select {...register("animal")}>
               {animal.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}
@@ -56,8 +73,7 @@ const index = () => {
 
           <Form.Group as={Col} controlId="cliente">
             <Form.Label>Cliente: </Form.Label>
-            <Form.Select defaultValue="..." {...register("cliente")}>
-              <option>...</option>
+            <Form.Select {...register("cliente")}>
               {cliente.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}
@@ -66,8 +82,7 @@ const index = () => {
 
           <Form.Group as={Col} controlId="veterinario">
             <Form.Label>Veterinário: </Form.Label>
-            <Form.Select defaultValue="..." {...register("veterinario")}>
-              <option>...</option>
+            <Form.Select {...register("veterinario")}>
               {veterinario.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}

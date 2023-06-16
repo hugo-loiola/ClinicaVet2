@@ -30,7 +30,7 @@ const form = () => {
   }
 
   return (
-    <Pagina titulo="Nova Vacina Felina">
+    <Pagina titulo="Nova Vacina Felina" footer="fixed">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">

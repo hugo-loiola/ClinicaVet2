@@ -47,7 +47,7 @@ const form = () => {
     setValue(name, mask(value, mascara));
   }
   return (
-    <Pagina>
+    <Pagina titulo="Criar Consulta" footer="fixed">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="animal">
