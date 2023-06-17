@@ -1,3 +1,4 @@
+import Info from "@/components/Info";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
@@ -24,7 +25,7 @@ const index = () => {
   }
 
   return (
-    <Pagina titulo={cliente.nome}>
+    <Pagina titulo={cliente.nome} footer="fixed">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
@@ -34,7 +35,7 @@ const index = () => {
           exluido para sempre!
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button style={{ backgroundColor: "#0D8CFF" }} onClick={handleClose}>
             Sair
           </Button>
           <Button
@@ -56,36 +57,69 @@ const index = () => {
         </Col>
         <Col>
           <h3>Informações:</h3>
-          <div
-            style={{ border: "1px solid orange", borderRadius: "5px" }}
-            className="p-3"
-          >
-            <p>Animail: {cliente.animal}</p>
-            <p>CPF: {cliente.cpf}</p>
-            <p>CEP: {cliente.cep}</p>
-            <p>Data de Nascimento: {cliente.dataNascimento}</p>
-            <p>Email: {cliente.email}</p>
-            <p>Telefone: {cliente.telefone}</p>
-            <p>Logradouro: {cliente.logradouro}</p>
-            <p>Bairro: {cliente.bairro}</p>
-            <p>Número: {cliente.numero}</p>
-            <Row className="">
+          <Info>
+            <Row>
               <Col>
-                <Link
-                  className="btn"
-                  style={{ backgroundColor: "orange" }}
-                  href={`${cliente.id}/form`}
-                >
-                  Editar
-                </Link>
+                <p>
+                  <strong>Animail:</strong> {cliente.animal}
+                </p>
               </Col>
               <Col>
-                <Button onClick={excluir} className="btn btn-danger">
-                  Excluir
-                </Button>
+                <p>
+                  <strong>CPF:</strong> {cliente.cpf}
+                </p>
               </Col>
             </Row>
-          </div>
+            <Row>
+              <Col>
+                <p>
+                  <strong>CEP:</strong> {cliente.cep}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Email:</strong> {cliente.email}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p>
+                  <strong>Telefone:</strong> {cliente.telefone}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Logradouro:</strong> {cliente.logradouro}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p>
+                  <strong>Bairro:</strong> {cliente.bairro}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Número:</strong> {cliente.numero}
+                </p>
+              </Col>
+            </Row>
+            <div className="text-center">
+              <Link
+                className="btn"
+                style={{ backgroundColor: "#0D8CFF" }}
+                href={`${cliente.id}/form`}
+              >
+                Editar
+              </Link>
+
+              <Button onClick={excluir} className="btn btn-danger ms-2">
+                Excluir
+              </Button>
+            </div>
+          </Info>
         </Col>
       </Row>
     </Pagina>

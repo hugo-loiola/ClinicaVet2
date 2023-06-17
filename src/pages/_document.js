@@ -12,7 +12,7 @@ export default function Document() {
       />
       <link
         rel="icon"
-        href="https://www.zarla.com/images/zarla-benjivet-1x1-2400x2400-20211217-ytr7mb8jqcwv3xqc47vf.png?crop=1:1,smart&width=250&dpr=2"
+        href="https://media.discordapp.net/attachments/986769752653434981/1119407200713048254/minhalogo.png"
       />
       <title>AmeVet</title>
       <body>
