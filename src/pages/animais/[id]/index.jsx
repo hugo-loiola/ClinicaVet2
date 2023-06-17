@@ -50,7 +50,7 @@ const index = () => {
       </Modal>
       <Row>
         <Col>
-          <Card>
+          <Card style={{ height: "15rem" }}>
             <Card.Img src={animais.foto} />
           </Card>
         </Col>

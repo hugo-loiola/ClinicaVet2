@@ -1,3 +1,4 @@
+import Info from "@/components/Info";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
@@ -34,7 +35,7 @@ const index = () => {
           será exluido para sempre!
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button style={{ backgroundColor: "#0D8CFF" }} onClick={handleClose}>
             Sair
           </Button>
           <Button
@@ -56,36 +57,73 @@ const index = () => {
         </Col>
         <Col>
           <h3>Informações:</h3>
-          <div
-            style={{ border: "1px solid orange", borderRadius: "5px" }}
-            className="p-3"
-          >
-            <p>CRMV: {veterinario.crmv}</p>
-            <p>CPF: {veterinario.cpf}</p>
-            <p>CEP: {veterinario.cep}</p>
-            <p>Data de Nascimento: {veterinario.dataNascimento}</p>
-            <p>Email: {veterinario.email}</p>
-            <p>Telefone: {veterinario.telefone}</p>
-            <p>Logradouro: {veterinario.logradouro}</p>
-            <p>Bairro: {veterinario.bairro}</p>
-            <p>Número: {veterinario.numero}</p>
-            <Row className="">
+          <Info>
+            <Row>
               <Col>
-                <Link
-                  className="btn"
-                  style={{ backgroundColor: "orange" }}
-                  href={`${veterinario.id}/form`}
-                >
-                  Editar
-                </Link>
+                <p>
+                  <strong>CRMV:</strong> {veterinario.crmv}
+                </p>
               </Col>
               <Col>
-                <Button onClick={excluir} className="btn btn-danger">
-                  Excluir
-                </Button>
+                <p>
+                  <strong>CPF:</strong> {veterinario.cpf}
+                </p>
               </Col>
             </Row>
-          </div>
+            <Row>
+              <Col>
+                <p>
+                  <strong>CEP:</strong> {veterinario.cep}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Data de Nascimento:</strong>{" "}
+                  {veterinario.dataNascimento}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p>
+                  <strong>Email:</strong> {veterinario.email}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Telefone:</strong> {veterinario.telefone}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p>
+                  <strong>Logradouro:</strong> {veterinario.logradouro}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Bairro:</strong> {veterinario.bairro}
+                </p>
+              </Col>
+            </Row>
+            <p>
+              <strong>Número:</strong> {veterinario.numero}
+            </p>
+            <div className="text-center">
+              <Link
+                className="btn"
+                style={{ backgroundColor: "#0D8CFF" }}
+                href={`${veterinario.id}/form`}
+              >
+                Editar
+              </Link>
+
+              <Button onClick={excluir} className="btn btn-danger ms-2">
+                Excluir
+              </Button>
+            </div>
+          </Info>
         </Col>
       </Row>
     </Pagina>
