@@ -11,7 +11,7 @@ const Pagina = (props) => {
       <Container
         fluid
         className="py-3 text-center mb-3"
-        style={{ borderBottom: "5px solid orange" }}
+        style={{ borderBottom: "5px solid #0D8CFF" }}
       >
         <h1>{props.titulo}</h1>
       </Container>

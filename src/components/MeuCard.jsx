@@ -8,7 +8,7 @@ const MeuCard = (props) => {
         width: "18rem",
         boxShadow: "0 17px 10px rgba(0, 0, 0, 0.3)",
         transition: "transform 0.3s ease",
-        border: "1px solid orange",
+        border: "1px solid #0D8CFF",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "scale(1.05)";

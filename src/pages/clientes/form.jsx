@@ -7,6 +7,44 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
 import { mask } from "remask";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup
+  .object({
+    nome: yup
+      .string("Somente Letras")
+      .required("O Nome Obrigatório")
+      .max(5, "maximo"),
+    cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
+    animal: yup.string().default("...").required("Animal é Obrigatório"),
+    email: yup
+      .string()
+      .email("Use um email válido")
+      .required("Email é Obrigatório"),
+    telefone: yup
+      .string()
+      .required("Telefone Obrigatório")
+      .min(5, "Mínimo de 5 caracteres"),
+    cep: yup
+      .string()
+      .required("CEP Obrigatório")
+      .min(9, "Maximo de 9 caracteres"),
+    logradouro: yup
+      .string()
+      .required("Logradouro Obrigatório")
+      .min(3, "Mínimo de 3 caracteres")
+      .max(20, "Máximo de 20 caracteres"),
+    complemento: yup.string().max(20, "Máximo de 20 caracteres"),
+    numero: yup.number("Tem que ser Número"),
+    bairro: yup.string().required().max(50, "Máximo de 50 caracteres"),
+    foto: yup
+      .string()
+      .required("Foto Obrigatória")
+      .min(5, "Mínimo de 5 caracteres")
+      .url("Coloque uma URL válida"),
+  })
+  .required();
 
 const form = () => {
   const { push } = useRouter();
@@ -15,7 +53,8 @@ const form = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
+
   const [animal, setAnimal] = useState([]);
   useEffect(() => {
     getAll();
@@ -49,6 +88,9 @@ const form = () => {
               placeholder="Coloque seu Nome"
               {...register("nome")}
             />
+            {errors?.nome && (
+              <small className="text-danger">{errors.nome?.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="cpf">
@@ -60,6 +102,9 @@ const form = () => {
               {...register("cpf")}
               onChange={handleChange}
             />
+            {errors?.cpf && (
+              <small className="text-danger">{errors.cpf?.message}</small>
+            )}
           </Form.Group>
         </Row>
 
@@ -68,10 +113,13 @@ const form = () => {
             <Form.Label>Animal: </Form.Label>
             <Form.Select defaultValue="..." {...register("animal")}>
               <option>...</option>
-              {animal.map((item) => (
-                <option key={item.id}>{item.nome}</option>
+              {animal?.map((item) => (
+                <option key={item?.id}>{item?.nome}</option>
               ))}
             </Form.Select>
+            {errors.animal && (
+              <small className="text-danger">{errors.animal.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="email">
@@ -79,8 +127,11 @@ const form = () => {
             <Form.Control
               placeholder="exemplo@teste.com"
               type="email"
-              {...register("email", { maxLength: 100 })}
+              {...register("email")}
             />
+            {errors?.email && (
+              <small className="text-danger">{errors.email?.message}</small>
+            )}
           </Form.Group>
         </Row>
 
@@ -94,6 +145,9 @@ const form = () => {
               {...register("telefone")}
               onChange={handleChange}
             />
+            {errors?.telefone && (
+              <small className="text-danger">{errors.telefone?.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="cep">
@@ -105,40 +159,44 @@ const form = () => {
               {...register("cep")}
               onChange={handleChange}
             />
+            {errors?.cep && (
+              <small className="text-danger">{errors.cep?.message}</small>
+            )}
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="logradouro">
             <Form.Label>Logradouro: </Form.Label>
-            <Form.Control
-              type="text"
-              {...register("logradouro", { maxLength: 100 })}
-            />
+            <Form.Control type="text" {...register("logradouro")} />
+            {errors?.logradouro && (
+              <small className="text-danger">
+                {errors.logradouro?.message}
+              </small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="complemento">
             <Form.Label>Complemento: </Form.Label>
-            <Form.Control
-              type="text"
-              {...register("complemento", { maxLength: 100 })}
-            />
+            <Form.Control type="text" {...register("complemento")} />
+            {errors?.complemento && (
+              <small>{errors.complemento?.message}</small>
+            )}
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="numero">
             <Form.Label>Número: </Form.Label>
-            <Form.Control
-              type="text"
-              mask="999"
-              {...register("numero")}
-              onChange={handleChange}
-            />
+            <Form.Control type="number" {...register("numero")} />
+            {errors?.numero && <small>{errors.numero?.message}</small>}
           </Form.Group>
 
           <Form.Group as={Col} controlId="bairro">
             <Form.Label>Bairro: </Form.Label>
             <Form.Control type="text" {...register("bairro")} />
           </Form.Group>
+          {errors?.bairro && (
+            <small className="text-danger">{errors.bairro?.message}</small>
+          )}
         </Row>
         <Form.Group controlId="foto" className="mb-3">
           <Form.Label>Foto: </Form.Label>
@@ -147,6 +205,9 @@ const form = () => {
             placeholder="Coloque sua Imagem"
             {...register("foto")}
           />
+          {errors.foto && (
+            <small className="text-danger">{errors.foto.message}</small>
+          )}
         </Form.Group>
 
         <div className="text-center">

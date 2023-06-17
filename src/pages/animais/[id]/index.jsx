@@ -1,3 +1,4 @@
+import Info from "@/components/Info";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
@@ -24,7 +25,7 @@ const index = () => {
   }
 
   return (
-    <Pagina titulo={animais.nome}>
+    <Pagina titulo={animais.nome} footer="fixed">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Deseja Exlcuir {animais.nome}?</Modal.Title>
@@ -49,40 +50,66 @@ const index = () => {
       </Modal>
       <Row>
         <Col>
-          <Card>
+          <Card style={{ height: "15rem" }}>
             <Card.Img src={animais.foto} />
           </Card>
         </Col>
         <Col>
           <h3>Informações:</h3>
-          <div
-            style={{ border: "1px solid orange", borderRadius: "5px" }}
-            className="p-3"
-          >
-            <p>Dono(a): {animais.dono}</p>
-            <p>Tipo: {animais.tipo}</p>
-            <p>Raça: {animais.raca}</p>
-            <p>Data de Nascimento: {animais.dataNascimento}</p>
-            <p>Peso: {animais.peso}</p>
-            <p>Altura: {animais.altura}</p>
-            <p>Alergico: {animais.alergia}</p>
-            <Row className="">
+          <Info>
+            <Row>
               <Col>
-                <Link
-                  className="btn"
-                  style={{ backgroundColor: "orange" }}
-                  href={`${animais.id}/form`}
-                >
-                  Editar
-                </Link>
+                <p>
+                  <strong>Dono(a):</strong> {animais.dono}
+                </p>
               </Col>
               <Col>
-                <Button onClick={excluir} className="btn btn-danger">
-                  Excluir
-                </Button>
+                <p>
+                  <strong>Tipo:</strong> {animais.tipo}
+                </p>
               </Col>
             </Row>
-          </div>
+            <Row>
+              <Col>
+                <p>
+                  <strong>Raça:</strong> {animais.raca}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Data de Nascimento:</strong> {animais.dataNascimento}
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p>
+                  <strong>Peso:</strong> {animais.peso}
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <strong>Altura:</strong> {animais.altura}
+                </p>
+              </Col>
+            </Row>
+            <p>
+              <strong>Alergico:</strong> {animais.alergia}
+            </p>
+            <div className="text-center">
+              <Link
+                className="btn"
+                style={{ backgroundColor: "#0D8CFF" }}
+                href={`${animais.id}/form`}
+              >
+                Editar
+              </Link>
+
+              <Button onClick={excluir} className="btn btn-danger ms-2">
+                Excluir
+              </Button>
+            </div>
+          </Info>
         </Col>
       </Row>
     </Pagina>

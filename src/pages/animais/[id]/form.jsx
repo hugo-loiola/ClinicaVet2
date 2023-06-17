@@ -72,9 +72,15 @@ const form = () => {
               <small className="text-danger">{errors.nome.message}</small>
             )}
           </Form.Group>
-          <Form.Group as={Col} controlId="dataNascimento">
+          <Form.Group as={Col} controlid="dataNascimento">
             <Form.Label>Data de Nascimento: </Form.Label>
-            <Form.Control type="date" {...register("dataNascimento")} />
+            <Form.Control
+              type="date"
+              {...register("dataNascimento", animaisValidators.dataN)}
+            />
+            {errors.dataN && (
+              <small className="text-danger">{errors.dataN.message}</small>
+            )}
           </Form.Group>
         </Row>
 
@@ -90,18 +96,21 @@ const form = () => {
               <option>Gato</option>
               <option>Ave</option>
             </Form.Select>
-            {errors.tipo && <small></small>}
+            {errors.tipo && <small>{errors.tipo.message}</small>}
           </Form.Group>
 
-          <Form.Group as={Col}>
+          <Form.Group as={Col} controlId="raca">
             <Form.Label>Raça:</Form.Label>
             <Form.Control
               placeholder="Coloque a raça do bichinho"
-              {...register("raca")}
+              {...register("raca", animaisValidators.raca)}
             ></Form.Control>
+            {errors.raca && (
+              <small className="text-danger">{errors.raca.message}</small>
+            )}
           </Form.Group>
 
-          <Form.Group as={Col} controlId="dono">
+          <Form.Group as={Col} controlid="dono">
             <Form.Label>Dono: </Form.Label>
             <Form.Select defaultValue="..." {...register("dono")}>
               {dono.map((item) => (
@@ -116,8 +125,11 @@ const form = () => {
           <Form.Control
             type="text"
             placeholder="link da imagem"
-            {...register("foto")}
+            {...register("foto", animaisValidators.foto)}
           />
+          {errors.foto && (
+            <small className="text-danger">{errors.foto.message}</small>
+          )}
         </Form.Group>
 
         <Row>
@@ -128,11 +140,14 @@ const form = () => {
                 type="text"
                 placeholder="Peso em gramas"
                 mask="99,99"
-                {...register("peso")}
+                {...register("peso", animaisValidators.peso)}
                 onChange={handleChange}
               />
               <InputGroup.Text id="peso">g</InputGroup.Text>
             </InputGroup>
+            {errors.peso && (
+              <small className="text-danger">{errors.peso.message}</small>
+            )}
           </Col>
           <Col>
             <Form.Label>Altura: </Form.Label>
@@ -141,11 +156,14 @@ const form = () => {
                 type="text"
                 mask="99,99"
                 placeholder="99,99"
-                {...register("altura")}
+                {...register("altura", animaisValidators.altura)}
                 onChange={handleChange}
               />
               <InputGroup.Text id="peso">cm</InputGroup.Text>
             </InputGroup>
+            {errors.altura && (
+              <small className="text-danger">{errors.altura.message}</small>
+            )}
           </Col>
         </Row>
 
