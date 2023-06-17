@@ -61,7 +61,7 @@ const index = () => {
             <Row>
               <Col>
                 <p>
-                  <strong>Animail:</strong> {cliente.animal}
+                  <strong>Animal:</strong> {cliente.animal}
                 </p>
               </Col>
               <Col>
