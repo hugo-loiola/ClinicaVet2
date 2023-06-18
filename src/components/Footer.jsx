@@ -28,8 +28,7 @@ const Footer = ({ footer }) => {
           </Col>
         </Col>
         <Col>
-          <h4>AMEVET | CLÍNICA VETERINÁRIA </h4>Amor e Dedicação para seu melhor
-          amigo… Aguardamos a sua visita!
+          <h4>AMEVET | CLÍNICA VETERINÁRIA </h4>Aguardamos a sua visita!
         </Col>
         <Col>
           <h3>Converse Conosco</h3>

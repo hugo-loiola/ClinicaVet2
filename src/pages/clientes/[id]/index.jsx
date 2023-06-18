@@ -1,4 +1,5 @@
 import Info from "@/components/Info";
+import Loading from "@/components/Loading";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
@@ -10,12 +11,14 @@ const index = () => {
   const { push, query } = useRouter();
   const [cliente, setCliente] = useState([]);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
   const handleClose = () => setShow(false);
 
   useEffect(() => {
     if (query.id) {
       axios.get(`/api/clientes/${query.id}`).then((res) => {
         setCliente(res.data);
+        setLoading(false);
       });
     }
   }, [query.id]);
@@ -25,104 +28,113 @@ const index = () => {
   }
 
   return (
-    <Pagina titulo={cliente.nome} footer="fixed">
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Tenha certeza disso, após essa ação o <strong>Cliente</strong> será
-          exluido para sempre!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button style={{ backgroundColor: "#0D8CFF" }} onClick={handleClose}>
-            Sair
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => {
-              axios.delete(`/api/clientes/${cliente.id}`);
-              push("/clientes");
-            }}
-          >
-            Excluir
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Row>
-        <Col>
-          <Card>
-            <Card.Img src={cliente.foto} />
-          </Card>
-        </Col>
-        <Col>
-          <h3>Informações:</h3>
-          <Info>
-            <Row>
-              <Col>
-                <p>
-                  <strong>Animal:</strong> {cliente.animal}
-                </p>
-              </Col>
-              <Col>
-                <p>
-                  <strong>CPF:</strong> {cliente.cpf}
-                </p>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p>
-                  <strong>CEP:</strong> {cliente.cep}
-                </p>
-              </Col>
-              <Col>
-                <p>
-                  <strong>Email:</strong> {cliente.email}
-                </p>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p>
-                  <strong>Telefone:</strong> {cliente.telefone}
-                </p>
-              </Col>
-              <Col>
-                <p>
-                  <strong>Logradouro:</strong> {cliente.logradouro}
-                </p>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p>
-                  <strong>Bairro:</strong> {cliente.bairro}
-                </p>
-              </Col>
-              <Col>
-                <p>
-                  <strong>Número:</strong> {cliente.numero}
-                </p>
-              </Col>
-            </Row>
-            <div className="text-center">
-              <Link
-                className="btn"
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Pagina titulo={cliente.nome} footer="fixed">
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Tenha certeza disso, após essa ação o <strong>Cliente</strong>{" "}
+              será exluido para sempre!
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
                 style={{ backgroundColor: "#0D8CFF" }}
-                href={`${cliente.id}/form`}
+                onClick={handleClose}
               >
-                Editar
-              </Link>
-
-              <Button onClick={excluir} className="btn btn-danger ms-2">
+                Sair
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  axios.delete(`/api/clientes/${cliente.id}`);
+                  push("/clientes");
+                }}
+              >
                 Excluir
               </Button>
-            </div>
-          </Info>
-        </Col>
-      </Row>
-    </Pagina>
+            </Modal.Footer>
+          </Modal>
+          <Row>
+            <Col>
+              <Card>
+                <Card.Img src={cliente.foto} />
+              </Card>
+            </Col>
+            <Col>
+              <h3>Informações:</h3>
+              <Info>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Animal:</strong> {cliente.animal}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>CPF:</strong> {cliente.cpf}
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>CEP:</strong> {cliente.cep}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>Email:</strong> {cliente.email}
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Telefone:</strong> {cliente.telefone}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>Logradouro:</strong> {cliente.logradouro}
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Bairro:</strong> {cliente.bairro}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>Número:</strong> {cliente.numero}
+                    </p>
+                  </Col>
+                </Row>
+                <div className="text-center">
+                  <Link
+                    className="btn"
+                    style={{ backgroundColor: "#0D8CFF" }}
+                    href={`${cliente.id}/form`}
+                  >
+                    Editar
+                  </Link>
+
+                  <Button onClick={excluir} className="btn btn-danger ms-2">
+                    Excluir
+                  </Button>
+                </div>
+              </Info>
+            </Col>
+          </Row>
+        </Pagina>
+      )}
+    </>
   );
 };
 

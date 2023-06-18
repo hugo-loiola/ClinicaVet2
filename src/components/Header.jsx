@@ -18,6 +18,7 @@ const Header = () => {
           <Navbar.Brand href="/">
             <img
               style={{ width: "100px" }}
+              alt="AmeVet"
               src="https://media.discordapp.net/attachments/986769752653434981/1119407200713048254/minhalogo.png"
             />
           </Navbar.Brand>
