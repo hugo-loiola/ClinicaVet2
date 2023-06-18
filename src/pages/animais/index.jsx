@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import MeuCard from "@/components/MeuCard";
 import Pagina from "@/components/Pagina";
 import axios from "axios";
@@ -8,6 +9,7 @@ import { BsPlusCircle } from "react-icons/bs";
 
 const index = () => {
   const [animais, setAnimais] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getAll();
@@ -16,6 +18,7 @@ const index = () => {
   function getAll() {
     axios.get("/api/animais").then((res) => {
       setAnimais(res.data);
+      setLoading(false);
     });
   }
 
@@ -27,33 +30,39 @@ const index = () => {
   }
 
   return (
-    <Pagina titulo="Animais">
-      <Link href={"/animais/form"} className="btn btn-primary mb-2">
-        Novo
-        <BsPlusCircle className="ms-1" />
-      </Link>
-      <Row>
-        {animais.map((item) => (
-          <Col key={item.id}>
-            <Link
-              href={`/animais/${item.id}`}
-              style={{
-                textDecoration: "none",
-                color: "black",
-                textAlign: "center",
-              }}
-            >
-              <MeuCard>
-                <Card.Img src={item.foto} />
-                <Card.Body>
-                  <Card.Title>{item.nome}</Card.Title>
-                </Card.Body>
-              </MeuCard>
-            </Link>
-          </Col>
-        ))}
-      </Row>
-    </Pagina>
+    <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Pagina titulo="Animais">
+          <Link href={"/animais/form"} className="btn btn-primary mb-2">
+            Novo
+            <BsPlusCircle className="ms-1" />
+          </Link>
+          <Row>
+            {animais.map((item) => (
+              <Col key={item.id}>
+                <Link
+                  href={`/animais/${item.id}`}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    textAlign: "center",
+                  }}
+                >
+                  <MeuCard>
+                    <Card.Img src={item.foto} />
+                    <Card.Body>
+                      <Card.Title>{item.nome}</Card.Title>
+                    </Card.Body>
+                  </MeuCard>
+                </Link>
+              </Col>
+            ))}
+          </Row>
+        </Pagina>
+      )}
+    </div>
   );
 };
 
