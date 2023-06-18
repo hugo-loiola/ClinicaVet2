@@ -40,7 +40,7 @@ function App() {
                   Oferecemos uma ampla gama de serviços, incluindo consultas,
                   vacinas, cirurgias, exames laboratoriais e muito mais.
                 </p>
-                <Link href={"/consultas"} className="btn btn-primary">
+                <Link href={"/consultas/form"} className="btn btn-primary">
                   Agendar Consulta
                 </Link>
               </Col>

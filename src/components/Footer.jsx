@@ -17,7 +17,7 @@ const Footer = ({ footer }) => {
         <Col>
           <h3 className="mb-3">Nos encontre</h3>
           <Link
-            href="https://www.google.com/maps/dir//Centro%20Universit%C3%A1rio%20IESB%20-%20Campus%20Ceil%C3%A2ndia"
+            href="https://goo.gl/maps/mq71avpoui7Ssviz7"
             target="_blank"
             style={{ color: "black" }}
           >

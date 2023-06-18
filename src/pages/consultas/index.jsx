@@ -45,7 +45,7 @@ const index = () => {
                 Nova Consulta
                 <BsPlusCircle className="ms-1" />
               </Link>
-              <Table striped bordered hover>
+              <Table striped bordered hover responsive>
                 <thead>
                   <tr>
                     <th>#</th>
