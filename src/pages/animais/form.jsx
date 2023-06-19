@@ -123,7 +123,7 @@ const form = () => {
               <Form.Control
                 type="text"
                 placeholder="Peso em Gramas"
-                mask={[["99,99"], ["99,9"]]}
+                mask="9,99"
                 {...register("peso", animaisValidators.peso)}
                 onChange={handleChange}
               />
