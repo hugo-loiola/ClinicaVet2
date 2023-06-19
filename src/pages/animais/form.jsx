@@ -55,14 +55,15 @@ const form = () => {
               <small className="text-danger">{errors.nome.message}</small>
             )}
           </Form.Group>
-          <Form.Group as={Col} controlid="dataNascimento">
-            <Form.Label>Data de Nascimento: </Form.Label>
+          <Form.Group as={Col} controlId="data">
+            <Form.Label>Data de nascimento: </Form.Label>
             <Form.Control
-              type="date"
-              {...register("dataNascimento", animaisValidators.dataN)}
+              placeholder="24/12/2002"
+              type="text"
+              {...register("data", animaisValidators.nascimento)}
             />
-            {errors.dataN && (
-              <small className="text-danger">{errors.dataN.message}</small>
+            {errors.nascimento && (
+              <small className="text-danger">{errors.nascimento.message}</small>
             )}
           </Form.Group>
         </Row>
@@ -121,8 +122,8 @@ const form = () => {
             <InputGroup controlId="peso" className="mb-3">
               <Form.Control
                 type="text"
-                placeholder="Peso em gramas"
-                mask="99,99"
+                placeholder="Peso em Gramas"
+                mask={[["99,99"], ["99,9"]]}
                 {...register("peso", animaisValidators.peso)}
                 onChange={handleChange}
               />
@@ -138,7 +139,7 @@ const form = () => {
               <Form.Control
                 type="text"
                 mask="99,99"
-                placeholder="99,99"
+                placeholder="Altura em Centímetros"
                 {...register("altura", animaisValidators.altura)}
                 onChange={handleChange}
               />
