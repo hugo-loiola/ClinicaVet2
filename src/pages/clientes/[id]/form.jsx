@@ -17,7 +17,7 @@ const schema = yup
       .required("O Nome Obrigatório")
       .max(50, "Máximo de 50 caracteres"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
-    animal: yup.string().default("...").required("Animal é Obrigatório"),
+    animal: yup.string().required("Animal é Obrigatório"),
     email: yup
       .string()
       .email("Use um email válido")
@@ -128,7 +128,7 @@ const form = () => {
           <Form.Group as={Col} controlId="animal">
             <Form.Label>Animal: </Form.Label>
             <Form.Select defaultValue="..." {...register("animal")}>
-              <option>...</option>
+              <option value={"..."}>...</option>
               {animal?.map((item) => (
                 <option key={item?.id}>{item?.nome}</option>
               ))}
