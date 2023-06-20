@@ -59,8 +59,10 @@ const form = () => {
             <Form.Label>Data de nascimento: </Form.Label>
             <Form.Control
               placeholder="24/12/2002"
+              mask="99/99/9999"
               type="text"
               {...register("data", animaisValidators.nascimento)}
+              onChange={handleChange}
             />
             {errors.nascimento && (
               <small className="text-danger">{errors.nascimento.message}</small>
