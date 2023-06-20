@@ -52,6 +52,7 @@ const index = () => {
                     <th>Animal</th>
                     <th>Cliente</th>
                     <th>Veterinario</th>
+                    <th>Preço</th>
                     <th>Data</th>
                     <th>Hora</th>
                   </tr>
@@ -71,6 +72,7 @@ const index = () => {
                       <td>{item.animal}</td>
                       <td>{item.cliente}</td>
                       <td>{item.veterinario}</td>
+                      <td>R${item.preco}</td>
                       <td>{item.data}</td>
                       <td>{item.hora}</td>
                     </tr>

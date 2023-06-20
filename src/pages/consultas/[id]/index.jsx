@@ -6,9 +6,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
+import { mask } from "remask";
 
-const form = () => {
-  const { push } = useRouter();
+const index = () => {
+  const { push, query } = useRouter();
   const {
     register,
     handleSubmit,
@@ -16,6 +17,17 @@ const form = () => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    if (query.id) {
+      axios.get(`/api/consultas/${query.id}`).then((res) => {
+        const disciplina = res.data;
+
+        for (let atributo in disciplina) {
+          setValue(atributo, disciplina[atributo]);
+        }
+      });
+    }
+  }, [query.id]);
   const [animal, setAnimal] = useState([]);
   const [cliente, setCliente] = useState([]);
   const [veterinario, setVeterinario] = useState([]);
@@ -36,8 +48,8 @@ const form = () => {
   }
 
   function salvar(dados) {
-    axios.post("/api/consultas", dados);
-    push("/consultas");
+    axios.put(`/api/consultas/${dados.id}`, dados);
+    push(`/consultas/`);
   }
 
   function handleChange(event) {
@@ -47,7 +59,7 @@ const form = () => {
     setValue(name, mask(value, mascara));
   }
   return (
-    <Pagina titulo="Nova Consulta" footer="fixed">
+    <Pagina titulo="Editar Consultas" footer="fixed">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="animal">
@@ -81,6 +93,17 @@ const form = () => {
           </Form.Group>
         </Row>
         <Row className="mb-3">
+          <Form.Group as={Col} controlId="preco">
+            <Form.Label>Preço:</Form.Label>
+            <Form.Control
+              type="text"
+              mask={"R$ 9.999,99"}
+              placeholder="R$ 0,00"
+              {...register("preco")}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
           <Form.Group as={Col} controlId="data">
             <Form.Label>Data:</Form.Label>
             <Form.Control type="date" {...register("data")} />
@@ -107,4 +130,4 @@ const form = () => {
   );
 };
 
-export default form;
+export default index;

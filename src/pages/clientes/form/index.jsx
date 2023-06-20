@@ -36,8 +36,9 @@ const schema = yup
       .min(3, "Mínimo de 3 caracteres")
       .max(20, "Máximo de 20 caracteres"),
     complemento: yup.string().max(20, "Máximo de 20 caracteres"),
-    numero: yup.number("Tem que ser Número"),
+    numero: yup.string(),
     bairro: yup.string().required().max(50, "Máximo de 50 caracteres"),
+    cidade: yup.string().max(50, "Máximo de 50"),
     foto: yup
       .string()
       .required("Foto Obrigatória")
@@ -52,10 +53,28 @@ const form = () => {
     register,
     handleSubmit,
     setValue,
+    setFocus,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
   const [animal, setAnimal] = useState([]);
+
+  const checkCEP = (e) => {
+    if (!e.target.value) return;
+    const cep = e.target.value.replace(/\D/g, "");
+    console.log(cep);
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // register({ name: 'address', value: data.logradouro });
+        setValue("logradouro", data.logradouro);
+        setValue("bairro", data.bairro);
+        setValue("cidade", data.localidade);
+        setValue("uf", data.uf);
+        setFocus("numero");
+      });
+  };
   useEffect(() => {
     getAll();
   }, []);
@@ -157,7 +176,7 @@ const form = () => {
               type="text"
               mask="99999-999"
               {...register("cep")}
-              onChange={handleChange}
+              onBlur={checkCEP}
             />
             {errors?.cep && (
               <small className="text-danger">{errors.cep?.message}</small>
@@ -186,7 +205,12 @@ const form = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="numero">
             <Form.Label>Número: </Form.Label>
-            <Form.Control type="number" {...register("numero")} />
+            <Form.Control
+              type="text"
+              mask="9999"
+              {...register("numero")}
+              onChange={handleChange}
+            />
             {errors?.numero && <small>{errors.numero?.message}</small>}
           </Form.Group>
 
@@ -197,6 +221,23 @@ const form = () => {
           {errors?.bairro && (
             <small className="text-danger">{errors.bairro?.message}</small>
           )}
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="uf">
+            <Form.Label>UF: </Form.Label>
+            <Form.Control type="text" {...register("uf")} />
+            {errors?.uf && (
+              <small className="text-danger">{errors.uf?.message}</small>
+            )}
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="cidade">
+            <Form.Label>Cidade: </Form.Label>
+            <Form.Control type="text" {...register("cidade")} />
+            {errors?.cidade && (
+              <small className="text-danger">{errors.cidade?.message}</small>
+            )}
+          </Form.Group>
         </Row>
         <Form.Group controlId="foto" className="mb-3">
           <Form.Label>Foto: </Form.Label>
