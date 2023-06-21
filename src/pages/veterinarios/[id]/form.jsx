@@ -16,7 +16,7 @@ const schema = yup
       .string()
       .typeError("Somente Letras")
       .required("O Nome Obrigatório")
-      .max(5, "maximo"),
+      .max(50, "Máximo de 50 Caracteres"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
     crmv: yup.string().required("CRMV Obrigatório"),
     salario: yup

@@ -12,37 +12,18 @@ import { mask } from "remask";
 
 const schema = yup
   .object({
-    nome: yup
-      .string("Somente Letras")
-      .required("O Nome Obrigatório")
-      .max(50, "Máximo de 50 caracteres"),
-    cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
-    animal: yup.string().default("...").required("Animal é Obrigatório"),
-    email: yup
+    animal: yup.string().required().notOneOf(["..."], "Animal Obrigatório"),
+    cliente: yup.string().required().notOneOf(["..."], "Cliente Obrigatório"),
+    veterinario: yup
       .string()
-      .email("Use um email válido")
-      .required("Email é Obrigatório"),
-    telefone: yup
-      .string()
-      .required("Telefone Obrigatório")
-      .min(5, "Mínimo de 5 caracteres"),
-    cep: yup
-      .string()
-      .required("CEP Obrigatório")
-      .min(9, "Maximo de 9 caracteres"),
-    logradouro: yup
-      .string()
-      .required("Logradouro Obrigatório")
-      .min(3, "Mínimo de 3 caracteres")
-      .max(20, "Máximo de 20 caracteres"),
-    complemento: yup.string().max(20, "Máximo de 20 caracteres"),
-    numero: yup.number("Tem que ser Número"),
-    bairro: yup.string().required().max(50, "Máximo de 50 caracteres"),
-    foto: yup
-      .string()
-      .required("Foto Obrigatória")
-      .min(5, "Mínimo de 5 caracteres")
-      .url("Coloque uma URL válida"),
+      .required()
+      .notOneOf(["..."], "Veterinario Obrigatório"),
+    preco: yup
+      .number()
+      .typeError("Somente Número")
+      .required("Preço Obrigatório"),
+    data: yup.date().required("Data Obrigatória").typeError("Data Inválida"),
+    hora: yup.string().required("Hora Obrigatória"),
   })
   .required();
 
@@ -97,6 +78,9 @@ const form = () => {
                 <option key={item.id}>{item.nome}</option>
               ))}
             </Form.Select>
+            {errors.animal && (
+              <small className="text-danger">{errors.animal.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="cliente">
@@ -107,6 +91,9 @@ const form = () => {
                 <option key={item.id}>{item.nome}</option>
               ))}
             </Form.Select>
+            {errors.cliente && (
+              <small className="text-danger">{errors.cliente.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="veterinario">
@@ -117,6 +104,11 @@ const form = () => {
                 <option key={item.id}>{item.nome}</option>
               ))}
             </Form.Select>
+            {errors.veterinario && (
+              <small className="text-danger">
+                {errors.veterinario.message}
+              </small>
+            )}
           </Form.Group>
         </Row>
         <Row className="mb-3">
@@ -124,21 +116,30 @@ const form = () => {
             <Form.Label>Preço:</Form.Label>
             <Form.Control
               type="text"
-              mask={"R$ 9.999,99"}
+              mask="99999"
               placeholder="R$ 0,00"
               {...register("preco")}
               onChange={handleChange}
             />
+            {errors.preco && (
+              <small className="text-danger">{errors.preco.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="data">
             <Form.Label>Data:</Form.Label>
             <Form.Control type="date" {...register("data")} />
+            {errors.data && (
+              <small className="text-danger">{errors.data.message}</small>
+            )}
           </Form.Group>
 
           <Form.Group as={Col} controlId="hora">
             <Form.Label>Hora:</Form.Label>
             <Form.Control type="time" {...register("hora")} />
+            {errors.hora && (
+              <small className="text-danger">{errors.hora.message}</small>
+            )}
           </Form.Group>
         </Row>
 

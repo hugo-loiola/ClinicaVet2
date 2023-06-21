@@ -1,7 +1,5 @@
 import Pagina from "@/components/Pagina";
-import animaisValidators from "@/validators/animaisValidators";
 import axios from "axios";
-import { ref } from "firebase/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -9,6 +7,24 @@ import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
 import { mask } from "remask";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    nome: yup
+      .string()
+      .typeError("Somente Letras")
+      .required("O Nome Obrigatório")
+      .max(5, "maximo"),
+    dono: yup.string().required().notOneOf(["..."], "Dono Obrigatório"),
+    foto: yup
+      .string()
+      .required("Foto Obrigatória")
+      .min(5, "Mínimo de 5 caracteres")
+      .url("Coloque uma URL válida"),
+  })
+  .required();
 
 const form = () => {
   const { push, query } = useRouter();
@@ -35,6 +51,7 @@ const form = () => {
   }, [query.id]);
 
   const [dono, setDono] = useState([]);
+  const [racas, setRacas] = useState([]);
   useEffect(() => {
     getAll();
   }, []);
@@ -44,7 +61,7 @@ const form = () => {
       setDono(res.data);
     });
     axios.get("https://dog.ceo/api/breeds/list/all").then((res) => {
-      console.log(res.data);
+      setRacas(Object.keys(res.data.message));
     });
   }
 
@@ -69,7 +86,7 @@ const form = () => {
             <Form.Control
               placeholder="Coloque o nome do bichinho"
               type="text"
-              {...register("nome", animaisValidators.nome)}
+              {...register("nome")}
             />
             {errors.nome && (
               <small className="text-danger">{errors.nome.message}</small>
@@ -81,7 +98,7 @@ const form = () => {
               placeholder="24/12/2002"
               mask="99/99/9999"
               type="text"
-              {...register("data", animaisValidators.nascimento)}
+              {...register("data")}
               onChange={handleChange}
             />
             {errors.nascimento && (
@@ -91,26 +108,18 @@ const form = () => {
         </Row>
 
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="tipo">
-            <Form.Label>Tipo:</Form.Label>
-            <Form.Select
-              defaultValue="..."
-              {...register("tipo", animaisValidators.tipo)}
-            >
-              <option>...</option>
-              <option>Cachorro</option>
-              <option>Gato</option>
-              <option>Ave</option>
-            </Form.Select>
-            {errors.tipo && <small>{errors.tipo.message}</small>}
-          </Form.Group>
-
           <Form.Group as={Col} controlId="raca">
             <Form.Label>Raça:</Form.Label>
-            <Form.Control
-              placeholder="Coloque a raça do bichinho"
-              {...register("raca", animaisValidators.raca)}
-            ></Form.Control>
+            <Form.Select
+              defaultValue={"..."}
+              onSelect={handleChange}
+              {...register("raca")}
+            >
+              <option>...</option>
+              {racas.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </Form.Select>
             {errors.raca && (
               <small className="text-danger">{errors.raca.message}</small>
             )}
@@ -119,10 +128,14 @@ const form = () => {
           <Form.Group as={Col} controlid="dono">
             <Form.Label>Dono: </Form.Label>
             <Form.Select defaultValue="..." {...register("dono")}>
+              <option value={"..."}>...</option>
               {dono.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}
             </Form.Select>
+            {errors.dono && (
+              <small className="text-danger">{errors.dono.message}</small>
+            )}
           </Form.Group>
         </Row>
 
@@ -131,7 +144,7 @@ const form = () => {
           <Form.Control
             type="text"
             placeholder="link da imagem"
-            {...register("foto", animaisValidators.foto)}
+            {...register("foto")}
           />
           {errors.foto && (
             <small className="text-danger">{errors.foto.message}</small>
@@ -146,7 +159,7 @@ const form = () => {
                 type="text"
                 placeholder="Peso em Gramas"
                 mask="9,99"
-                {...register("peso", animaisValidators.peso)}
+                {...register("peso")}
                 onChange={handleChange}
               />
               <InputGroup.Text id="peso">g</InputGroup.Text>
@@ -162,7 +175,7 @@ const form = () => {
                 type="text"
                 mask="99,99"
                 placeholder="Altura em Centímetros"
-                {...register("altura", animaisValidators.altura)}
+                {...register("altura")}
                 onChange={handleChange}
               />
               <InputGroup.Text id="peso">cm</InputGroup.Text>
@@ -193,9 +206,6 @@ const form = () => {
                 value="Não"
                 {...register("alergia")}
               />
-              {errors.alergia && (
-                <small className="text-danger">{errors.alergia.message}</small>
-              )}
             </Col>
           </Form.Group>
         </fieldset>

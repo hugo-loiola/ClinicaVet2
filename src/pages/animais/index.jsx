@@ -4,7 +4,7 @@ import Pagina from "@/components/Pagina";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Table } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { BsPlusCircle } from "react-icons/bs";
 
 const index = () => {
