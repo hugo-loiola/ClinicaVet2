@@ -34,7 +34,7 @@ const index = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Pagina titulo="Animais">
+        <Pagina titulo="Animais" footer="fixed">
           <Link href={"/animais/form"} className="btn btn-primary mb-2">
             Novo
             <BsPlusCircle className="ms-1" />

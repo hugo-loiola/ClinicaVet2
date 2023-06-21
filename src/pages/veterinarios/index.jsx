@@ -27,7 +27,7 @@ const index = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Pagina titulo="Veterinarios">
+        <Pagina titulo="Veterinarios" footer="fixed">
           <Link href={"/veterinarios/form"} className="btn btn-primary mb-2">
             Novo
             <BsPlusCircle className="ms-1" />
