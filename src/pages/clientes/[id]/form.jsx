@@ -145,7 +145,7 @@ const form = () => {
           <Form.Group as={Col} controlId="animal">
             <Form.Label>Animal: </Form.Label>
             <Form.Select defaultValue="..." {...register("animal")}>
-              <option value={"..."}>...</option>
+              <option>...</option>
               {animal?.map((item) => (
                 <option key={item?.id}>{item?.nome}</option>
               ))}
@@ -219,7 +219,12 @@ const form = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="numero">
             <Form.Label>Número: </Form.Label>
-            <Form.Control type="number" {...register("numero")} />
+            <Form.Control
+              type="text"
+              mask="9999"
+              {...register("numero")}
+              onChange={handleChange}
+            />
             {errors?.numero && <small>{errors.numero?.message}</small>}
           </Form.Group>
 
@@ -230,6 +235,23 @@ const form = () => {
           {errors?.bairro && (
             <small className="text-danger">{errors.bairro?.message}</small>
           )}
+        </Row>
+        <Row>
+          <Form.Group as={Col} controlId="uf">
+            <Form.Label>UF: </Form.Label>
+            <Form.Control type="text" {...register("uf")} />
+            {errors?.uf && (
+              <small className="text-danger">{errors.uf?.message}</small>
+            )}
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="cidade">
+            <Form.Label>Cidade: </Form.Label>
+            <Form.Control type="text" {...register("cidade")} />
+            {errors?.cidade && (
+              <small className="text-danger">{errors.cidade?.message}</small>
+            )}
+          </Form.Group>
         </Row>
         <Form.Group controlId="foto" className="mb-3">
           <Form.Label>Foto: </Form.Label>
