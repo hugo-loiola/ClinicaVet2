@@ -4,8 +4,8 @@ import * as yup from "yup";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsArrowLeftCircleFill, BsCheck2 } from "react-icons/bs";
 import { mask } from "remask";
@@ -16,7 +16,7 @@ const schema = yup
       .string()
       .typeError("Somente Letras")
       .required("O Nome Obrigatório")
-      .min(5, "Mínimo de 5 Caracteres")
+      .max(5, "Mínimo de 5 Caracteres")
       .max(50, "Máximo de 50 Caracteres")
       .matches(/^[aA-zZ\s]+$/, "Somente Letras"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
@@ -55,7 +55,7 @@ const schema = yup
   .required();
 
 const form = () => {
-  const { push, query } = useRouter();
+  const { push } = useRouter();
   const {
     register,
     handleSubmit,
@@ -64,26 +64,12 @@ const form = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const [veterinario, setVeterinario] = useState([]);
   const [ddd, setDdd] = useState("");
   const [disabled, setDisabled] = useState(false);
 
-  useEffect(() => {
-    if (query.id) {
-      axios.get(`/api/veterinarios/${query.id}`).then((res) => {
-        const disciplina = res.data;
-        setVeterinario(res.data);
-
-        for (let atributo in disciplina) {
-          setValue(atributo, disciplina[atributo]);
-        }
-      });
-    }
-  }, [query.id]);
-
   function salvar(dados) {
-    axios.put(`/api/veterinarios/${dados.id}`, dados);
-    push(`/veterinarios/${veterinario.id}`);
+    axios.post("/api/veterinarios", dados);
+    push("/veterinarios");
   }
 
   function handleChange(event) {
@@ -113,7 +99,7 @@ const form = () => {
   };
 
   return (
-    <Pagina titulo="Editar Veterinario">
+    <Pagina titulo="Novo Cliente">
       <Form>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="nome">
@@ -298,10 +284,7 @@ const form = () => {
             <BsCheck2 className="me-1" />
             Salvar
           </Button>
-          <Link
-            href={`/veterinarios/${veterinario.id}`}
-            className="ms-2 btn btn-danger"
-          >
+          <Link href={`/veterinarios`} className="ms-2 btn btn-danger">
             <BsArrowLeftCircleFill className="me-1" />
             Voltar
           </Link>

@@ -32,7 +32,7 @@ const index = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Pagina titulo={cliente.nome} footer="fixed">
+        <Pagina titulo={cliente.nome}>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Deseja Exlcuir {cliente.nome}?</Modal.Title>
@@ -113,6 +113,18 @@ const index = () => {
                   <Col>
                     <p>
                       <strong>Número:</strong> {cliente.numero}
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Cidade:</strong> {cliente.cidade}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>UF:</strong> {cliente.uf}
                     </p>
                   </Col>
                 </Row>

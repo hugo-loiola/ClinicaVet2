@@ -64,7 +64,8 @@ const index = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="animal">
             <Form.Label>Animal: </Form.Label>
-            <Form.Select {...register("animal")}>
+            <Form.Select defaultValue="..." {...register("animal")}>
+              <option>...</option>
               {animal.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}
@@ -73,7 +74,8 @@ const index = () => {
 
           <Form.Group as={Col} controlId="cliente">
             <Form.Label>Cliente: </Form.Label>
-            <Form.Select {...register("cliente")}>
+            <Form.Select defaultValue="..." {...register("cliente")}>
+              <option>...</option>
               {cliente.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}
@@ -82,7 +84,8 @@ const index = () => {
 
           <Form.Group as={Col} controlId="veterinario">
             <Form.Label>Veterinário: </Form.Label>
-            <Form.Select {...register("veterinario")}>
+            <Form.Select defaultValue="..." {...register("veterinario")}>
+              <option>...</option>
               {veterinario.map((item) => (
                 <option key={item.id}>{item.nome}</option>
               ))}
@@ -90,6 +93,17 @@ const index = () => {
           </Form.Group>
         </Row>
         <Row className="mb-3">
+          <Form.Group as={Col} controlId="preco">
+            <Form.Label>Preço:</Form.Label>
+            <Form.Control
+              type="text"
+              mask={"R$ 9.999,99"}
+              placeholder="R$ 0,00"
+              {...register("preco")}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
           <Form.Group as={Col} controlId="data">
             <Form.Label>Data:</Form.Label>
             <Form.Control type="date" {...register("data")} />

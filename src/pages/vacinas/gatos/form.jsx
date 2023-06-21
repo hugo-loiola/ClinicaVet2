@@ -48,20 +48,19 @@ const form = () => {
               <small className="text-danger">{errors.tipo.message}</small>
             )}
           </Form.Group>
-          <Form.Group as={Col} controlId="observacoes">
-            <Form.Label>Observações: </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Efeitos colaterais, tempo, etc..."
-              {...register("observacoes", vacinasValidators.observacoes)}
-            />
-            {errors.observacoes && (
-              <small className="text-danger">
-                {errors.observacoes.message}
-              </small>
-            )}
-          </Form.Group>
         </Row>
+        <Form.Group as={Col} controlId="observacoes" className="mb-3">
+          <Form.Label>Observações: </Form.Label>
+          <Form.Control
+            as={"textarea"}
+            type="text"
+            placeholder="Efeitos colaterais, tempo, etc..."
+            {...register("observacoes", vacinasValidators.observacoes)}
+          />
+          {errors.observacoes && (
+            <small className="text-danger">{errors.observacoes.message}</small>
+          )}
+        </Form.Group>
         <div className="text-center">
           <Button variant="success" onClick={handleSubmit(salvar)}>
             <BsCheck2 className="me-1" />

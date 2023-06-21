@@ -35,6 +35,7 @@ const Footer = ({ footer }) => {
           <Col className="my-3">
             <a
               href="https://wa.me/5561991862235"
+              target="_blank"
               style={{ textDecoration: "none", color: "black" }}
             >
               <MdWhatsapp size={"25"} /> (61) 99186-2235
