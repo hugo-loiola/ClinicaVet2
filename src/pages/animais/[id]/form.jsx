@@ -14,15 +14,23 @@ const schema = yup
   .object({
     nome: yup
       .string()
-      .typeError("Somente Letras")
-      .required("O Nome Obrigatório")
-      .max(5, "maximo"),
+      .required("Nome Obrigatório")
+      .max(50, "Máximo de 50 caracteres")
+      .min(2, "Mínimo de 2 caracteres")
+      .matches(/^[aA-zZ\s]+$/, "Somente Letras"),
+
+    raca: yup.string().required().notOneOf(["..."], "Animal Obrigatório"),
     dono: yup.string().required().notOneOf(["..."], "Dono Obrigatório"),
-    foto: yup
-      .string()
-      .required("Foto Obrigatória")
-      .min(5, "Mínimo de 5 caracteres")
-      .url("Coloque uma URL válida"),
+    foto: yup.string().required("Foto Obrigatória").url("URL inválida"),
+    peso: yup
+      .number()
+      .required("Peso Obrigatório")
+      .typeError("Somente Números"),
+    altura: yup
+      .number()
+      .required("Peso Obrigatório")
+      .typeError("Somente Números"),
+    alergia: yup.string().required("Coloque uma opção"),
   })
   .required();
 
@@ -33,7 +41,7 @@ const form = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
   const [animais, setAnimais] = useState([]);
 

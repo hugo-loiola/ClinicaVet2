@@ -12,7 +12,12 @@ import * as yup from "yup";
 
 const schema = yup
   .object({
-    nome: yup.string().required("Nome Obrigatório"),
+    nome: yup
+      .string("Somente Letras")
+      .required("Nome Obrigatório")
+      .matches(/^[aA-zZ\s]+$/, "Somente Letras")
+      .max(50, "Máximo de 50 caracteres")
+      .min(2, "Mínimo de 2 caracteres"),
     raca: yup.string().required().notOneOf(["..."], "Animal Obrigatório"),
     dono: yup.string().required().notOneOf(["..."], "Dono Obrigatório"),
     foto: yup.string().required("Foto Obrigatória").url("URL inválida"),
@@ -36,6 +41,7 @@ const form = () => {
     setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+
   const [dono, setDono] = useState([]);
   const [racas, setRacas] = useState([]);
   useEffect(() => {

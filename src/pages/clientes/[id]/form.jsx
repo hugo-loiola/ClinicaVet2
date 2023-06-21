@@ -15,7 +15,8 @@ const schema = yup
     nome: yup
       .string("Somente Letras")
       .required("O Nome Obrigatório")
-      .max(50, "Máximo de 50 caracteres"),
+      .max(50, "Máximo de 50 caracteres")
+      .matches(/^[aA-zZ\s]+$/, "Somente Letras"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
     animal: yup.string().required().notOneOf(["..."], "Animal é Obrigatório"),
     email: yup
