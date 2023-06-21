@@ -70,6 +70,23 @@ const form = () => {
     }
   }, [query.id]);
 
+  const checkCEP = (e) => {
+    if (!e.target.value) return;
+    const cep = e.target.value.replace(/\D/g, "");
+    console.log(cep);
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // register({ name: 'address', value: data.logradouro });
+        setValue("logradouro", data.logradouro);
+        setValue("bairro", data.bairro);
+        setValue("cidade", data.localidade);
+        setValue("uf", data.uf);
+        setFocus("numero");
+      });
+  };
+
   const [animal, setAnimal] = useState([]);
   useEffect(() => {
     getAll();
@@ -173,7 +190,7 @@ const form = () => {
               type="text"
               mask="99999-999"
               {...register("cep")}
-              onChange={handleChange}
+              onBlur={checkCEP}
             />
             {errors?.cep && (
               <small className="text-danger">{errors.cep?.message}</small>
