@@ -58,6 +58,7 @@ const form = () => {
 
   const [cliente, setCliente] = useState([]);
   const [ddd, setDdd] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (query.id) {
@@ -86,6 +87,7 @@ const form = () => {
         setValue("cidade", data.localidade);
         setValue("uf", data.uf);
         setDdd(data.ddd);
+        setDisabled(true);
         setFocus("numero");
       });
   };
@@ -203,7 +205,11 @@ const form = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="logradouro">
             <Form.Label>Logradouro: </Form.Label>
-            <Form.Control type="text" {...register("logradouro")} />
+            <Form.Control
+              type="text"
+              disabled={disabled}
+              {...register("logradouro")}
+            />
             {errors?.logradouro && (
               <small className="text-danger">
                 {errors.logradouro?.message}
@@ -233,7 +239,11 @@ const form = () => {
 
           <Form.Group as={Col} controlId="bairro">
             <Form.Label>Bairro: </Form.Label>
-            <Form.Control type="text" {...register("bairro")} />
+            <Form.Control
+              type="text"
+              disabled={disabled}
+              {...register("bairro")}
+            />
           </Form.Group>
           {errors?.bairro && (
             <small className="text-danger">{errors.bairro?.message}</small>
@@ -242,7 +252,7 @@ const form = () => {
         <Row>
           <Form.Group as={Col} controlId="uf">
             <Form.Label>UF: </Form.Label>
-            <Form.Control type="text" {...register("uf")} />
+            <Form.Control type="text" disabled={disabled} {...register("uf")} />
             {errors?.uf && (
               <small className="text-danger">{errors.uf?.message}</small>
             )}
@@ -250,7 +260,11 @@ const form = () => {
 
           <Form.Group as={Col} controlId="cidade">
             <Form.Label>Cidade: </Form.Label>
-            <Form.Control type="text" {...register("cidade")} />
+            <Form.Control
+              type="text"
+              disabled={disabled}
+              {...register("cidade")}
+            />
             {errors?.cidade && (
               <small className="text-danger">{errors.cidade?.message}</small>
             )}

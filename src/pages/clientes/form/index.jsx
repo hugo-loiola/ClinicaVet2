@@ -17,7 +17,7 @@ const schema = yup
       .required("O Nome Obrigatório")
       .max(50, "Máximo de 50 caracteres"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
-    animal: yup.string().default("...").required("Animal é Obrigatório"),
+    animal: yup.string().required().notOneOf(["..."], "Animal é Obrigatório"),
     email: yup
       .string()
       .email("Use um email válido")
@@ -58,6 +58,8 @@ const form = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const [animal, setAnimal] = useState([]);
+  const [ddd, setDdd] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
   const checkCEP = (e) => {
     if (!e.target.value) return;
@@ -72,6 +74,8 @@ const form = () => {
         setValue("bairro", data.bairro);
         setValue("cidade", data.localidade);
         setValue("uf", data.uf);
+        setDdd(data.ddd);
+        setDisabled(true);
         setFocus("numero");
       });
   };
@@ -186,7 +190,11 @@ const form = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="logradouro">
             <Form.Label>Logradouro: </Form.Label>
-            <Form.Control type="text" {...register("logradouro")} />
+            <Form.Control
+              type="text"
+              disabled={disabled}
+              {...register("logradouro")}
+            />
             {errors?.logradouro && (
               <small className="text-danger">
                 {errors.logradouro?.message}
@@ -216,7 +224,11 @@ const form = () => {
 
           <Form.Group as={Col} controlId="bairro">
             <Form.Label>Bairro: </Form.Label>
-            <Form.Control type="text" {...register("bairro")} />
+            <Form.Control
+              type="text"
+              disabled={disabled}
+              {...register("bairro")}
+            />
           </Form.Group>
           {errors?.bairro && (
             <small className="text-danger">{errors.bairro?.message}</small>
@@ -225,7 +237,7 @@ const form = () => {
         <Row>
           <Form.Group as={Col} controlId="uf">
             <Form.Label>UF: </Form.Label>
-            <Form.Control type="text" {...register("uf")} />
+            <Form.Control type="text" disabled={disabled} {...register("uf")} />
             {errors?.uf && (
               <small className="text-danger">{errors.uf?.message}</small>
             )}
@@ -233,7 +245,11 @@ const form = () => {
 
           <Form.Group as={Col} controlId="cidade">
             <Form.Label>Cidade: </Form.Label>
-            <Form.Control type="text" {...register("cidade")} />
+            <Form.Control
+              type="text"
+              disabled={disabled}
+              {...register("cidade")}
+            />
             {errors?.cidade && (
               <small className="text-danger">{errors.cidade?.message}</small>
             )}

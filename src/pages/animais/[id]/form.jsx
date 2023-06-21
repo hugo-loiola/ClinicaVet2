@@ -43,6 +43,9 @@ const form = () => {
     axios.get("/api/clientes").then((res) => {
       setDono(res.data);
     });
+    axios.get("https://dog.ceo/api/breeds/list/all").then((res) => {
+      console.log(res.data);
+    });
   }
 
   function salvar(dados) {

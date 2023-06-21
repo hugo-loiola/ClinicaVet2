@@ -1,6 +1,8 @@
 import Pagina from "@/components/Pagina";
+import apiGatos from "@/services/apiGatos";
 import animaisValidators from "@/validators/animaisValidators";
 import axios from "axios";
+import { endBefore } from "firebase/database";
 import { ref } from "firebase/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,6 +21,9 @@ const form = () => {
     formState: { errors },
   } = useForm();
   const [dono, setDono] = useState([]);
+  const [racas, setRacas] = useState([]);
+  const [imagem, setImagem] = useState([]);
+  const [disabled, setDisabled] = useState(false);
   useEffect(() => {
     getAll();
   }, []);
@@ -27,7 +32,18 @@ const form = () => {
     axios.get("/api/clientes").then((res) => {
       setDono(res.data);
     });
+    axios.get("https://dog.ceo/api/breeds/list/all").then((res) => {
+      setRacas(Object.keys(res.data.message));
+    });
+
+    axios
+      .get(`https://dog.ceo/api/breed/${racas}/images/random`)
+      .then((res) => {
+        setImagem(res.data.message);
+        setDisabled(true);
+      });
   }
+
   function salvar(dados) {
     axios.post("/api/animais", dados);
     push("/animais");
@@ -39,6 +55,10 @@ const form = () => {
     const mascara = event.target.getAttribute("mask");
     setValue(name, mask(value, mascara));
   }
+
+  const handleSelecaoChange = (event) => {
+    console.log(event.target.value);
+  };
 
   return (
     <Pagina titulo="Novo Animal">
@@ -71,26 +91,18 @@ const form = () => {
         </Row>
 
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="tipo">
-            <Form.Label>Tipo:</Form.Label>
-            <Form.Select
-              defaultValue="..."
-              {...register("tipo", animaisValidators.tipo)}
-            >
-              <option>...</option>
-              <option>Cachorro</option>
-              <option>Gato</option>
-              <option>Ave</option>
-            </Form.Select>
-            {errors.tipo && <small>{errors.tipo.message}</small>}
-          </Form.Group>
-
           <Form.Group as={Col} controlId="raca">
             <Form.Label>Raça:</Form.Label>
-            <Form.Control
-              placeholder="Coloque a raça do bichinho"
-              {...register("raca", animaisValidators.raca)}
-            ></Form.Control>
+            <Form.Select
+              defaultValue={"..."}
+              onChange={handleSelecaoChange}
+              {...register("raca")}
+            >
+              <option>...</option>
+              {racas.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </Form.Select>
             {errors.raca && (
               <small className="text-danger">{errors.raca.message}</small>
             )}
@@ -110,6 +122,8 @@ const form = () => {
           <Form.Label>Coloque a Imagem</Form.Label>
           <Form.Control
             type="text"
+            value={imagem}
+            disabled={disabled}
             placeholder="link da imagem"
             {...register("foto", animaisValidators.foto)}
           />
