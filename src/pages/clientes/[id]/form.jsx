@@ -17,7 +17,7 @@ const schema = yup
       .required("O Nome Obrigatório")
       .max(50, "Máximo de 50 caracteres"),
     cpf: yup.string().required("CPF Obrigatório").min(14, "Preencha o CPF"),
-    animal: yup.string().required("Animal é Obrigatório"),
+    animal: yup.string().required().notOneOf(["..."], "Animal é Obrigatório"),
     email: yup
       .string()
       .email("Use um email válido")
@@ -52,10 +52,12 @@ const form = () => {
     register,
     handleSubmit,
     setValue,
+    setFocus,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
   const [cliente, setCliente] = useState([]);
+  const [ddd, setDdd] = useState("");
 
   useEffect(() => {
     if (query.id) {
@@ -83,6 +85,7 @@ const form = () => {
         setValue("bairro", data.bairro);
         setValue("cidade", data.localidade);
         setValue("uf", data.uf);
+        setDdd(data.ddd);
         setFocus("numero");
       });
   };
@@ -174,7 +177,7 @@ const form = () => {
             <Form.Control
               type="tel"
               placeholder="(01) 23456-78909"
-              mask="(99) 99999-9999"
+              mask={`(${ddd}) 99999-9999`}
               {...register("telefone")}
               onChange={handleChange}
             />

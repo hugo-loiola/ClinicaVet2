@@ -18,6 +18,7 @@ const index = () => {
     if (query.id) {
       axios.get(`/api/veterinarios/${query.id}`).then((res) => {
         setCliente(res.data);
+        setLoading(false);
       });
     }
   }, [query.id]);
@@ -113,6 +114,18 @@ const index = () => {
                   <Col>
                     <p>
                       <strong>Bairro:</strong> {veterinario.bairro}
+                    </p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <p>
+                      <strong>Cidade:</strong> {veterinario.cidade}
+                    </p>
+                  </Col>
+                  <Col>
+                    <p>
+                      <strong>UF:</strong> {veterinario.uf}
                     </p>
                   </Col>
                 </Row>
