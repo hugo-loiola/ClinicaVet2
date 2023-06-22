@@ -22,11 +22,11 @@ const schema = yup
     dono: yup.string().required().notOneOf(["..."], "Dono Obrigatório"),
     foto: yup.string().required("Foto Obrigatória").url("URL inválida"),
     peso: yup
-      .number()
+      .string()
       .required("Peso Obrigatório")
       .typeError("Somente Números"),
     altura: yup
-      .number()
+      .string()
       .required("Peso Obrigatório")
       .typeError("Somente Números"),
     alergia: yup.string().required("Coloque uma opção"),
